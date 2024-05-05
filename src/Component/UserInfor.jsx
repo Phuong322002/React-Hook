@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AddUserComponent from "./AddUserComponent";
 import DisplayComponent from "./DisplayComponent";
 
@@ -31,6 +31,13 @@ const UserComponent = () => {
         //     listUser: listUserCopy
         // })
     }
+    useEffect(() => {
+        let obj = { id: Math.floor(Math.random() * 1000), name: 'Ly', age: 22 }
+        if (listUser.length >= 5) {
+            alert('cc')
+        }
+
+    }, [listUser])
 
     return (
         <div>
