@@ -10,26 +10,96 @@ body {
 
 .app-container{
  .header-container{
+
+
+  .navbar{
+
+  }
+
   .navbar-brand{
     z-index: 10;
-    color: red
+    background-color: rgba(0,0,0, 0) !important;
+
   }
   .navbar-nav {
     z-index: 10;
-    opacity: 0.9;
+    background-color: rgba(0,0,0, 0) !important;
     
     .nav-link{
       &.active{
-        color: red;
+        color: #00bfff;
       }
     }
   }
+
+  .btn-signin{
+    border-radius: 4px;
+    height: 35px;
+    margin-right: 20px;
+    border: 1px solid;
+    padding: 0 10px;
+  }
+
+  .btn-signup{
+    border-radius: 4px;
+    height: 35px;
+    margin-right: 20px;
+    border: 1px solid grey;
+    padding: 0 10px;
+    background-color: black;
+    color: white;
+    &:hover{
+      background-color: #C0C0C0;
+    }
+  }
+
+  @media (min-width: 1400px) {
+    .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
+        max-width: 1504px;
+    }
+}
  } 
+
+ .main-container{
+
+    .route-app-container{
+      .content-container{
+        width: 800px ;
+        position: relative;
+        padding:  200px 100px;
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+
+        .title{
+          font-weight: 5000px;
+          font-size: 50px;
+        }
+
+        .text{
+          font-size: 20px;
+        }
+
+        .btn-start{
+          border-radius: 5px;
+          height: 40px;
+          background-color: grey;
+          color: white;
+          border: 1px solid;
+          &:hover{
+            background-color: black;
+          }
+        }
+      }
+      
+    }
+ }
+
 }
 
 
 video{
   position: fixed;
-  bottom: 0;
+  bottom: -60px;
   width: 100vw;
 }
