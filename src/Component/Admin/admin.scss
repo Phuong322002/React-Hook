@@ -1,0 +1,11 @@
+.admin-container{
+    display: flex;
+    .admin-sidebar{
+        .pro-sidebar > .pro-sidebar-inner{
+            height: 100vh !important;
+        }
+    }
+    .admin-content{
+
+    }
+}
