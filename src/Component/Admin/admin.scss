@@ -3,9 +3,38 @@
     .admin-sidebar{
         .pro-sidebar > .pro-sidebar-inner{
             height: 100vh !important;
+            .App-logo {
+                pointer-events: none;
+              }
+              
+              @media (prefers-reduced-motion: no-preference) {
+                .App-logo {
+                  animation: App-logo-spin infinite 20s linear;
+                }
+              }
+            
+              @keyframes App-logo-spin {
+                from {
+                  transform: rotate(0deg);
+                }
+                to {
+                  transform: rotate(360deg);
+                }
+              }
         }
     }
-    .admin-content{
 
+    .admin-content{
+      width: 100%;
+
+        .admin-header{
+          height: 40px;
+          border: 1px solid red;
+        }
+
+        .admin-main-content{
+          border: 1px solid green;
+        }
     }
 }
+

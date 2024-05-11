@@ -11,10 +11,20 @@ import {
 import { FaTachometerAlt, FaGem, FaList, FaGithub, FaRegLaughWink, FaHeart } from 'react-icons/fa';
 import sidebarBg from '../../assets/bg2.jpg';
 import 'react-pro-sidebar/dist/css/styles.css';
+import logo from '../../assets/logo192.png'
+import { MdDashboard } from "react-icons/md";
+import './Sidebar.scss'
+import { NavLink, withRouter } from "react-router-dom";
+
+
 const Sidebar = (props) => {
     const { image, collapsed, rtl, toggled, handleToggleSidebar } = props
 
     console.log('collapsed', collapsed)
+
+    const handleDashboard = () => {
+
+    }
     return (
         <ProSidebar
             image={sidebarBg}
@@ -36,6 +46,7 @@ const Sidebar = (props) => {
                         whiteSpace: 'nowrap',
                     }}
                 >
+                    <img src={logo} width='30px' className="App-logo" alt="logo" /> <></>
                     React Hook
                 </div>
             </SidebarHeader>
@@ -43,21 +54,21 @@ const Sidebar = (props) => {
             <SidebarContent>
                 <Menu iconShape="circle">
                     <MenuItem
-                        icon={<FaTachometerAlt />}
+                        icon={<MdDashboard />}
                         suffix={<span className="badge red">New</span>}
+                        onClick={() => { handleDashboard() }}
                     >
-                        Dashboard
+                        <NavLink to='/admin'>Dashboard</NavLink>
                     </MenuItem>
-                    <MenuItem icon={<FaGem />}>Components</MenuItem>
                 </Menu>
                 <Menu iconShape="circle">
                     <SubMenu
-                        suffix={<span className="badge yellow">3</span>}
-                        icon={<FaRegLaughWink />}
+                        icon={<FaGem />}
+                        title='Features'
                     >
-                        <MenuItem>1</MenuItem>
-                        <MenuItem> 2</MenuItem>
-                        <MenuItem> 3</MenuItem>
+                        <MenuItem><NavLink to='manage-user'>Quản lý users</NavLink></MenuItem>
+                        <MenuItem>Quản lý Quiz</MenuItem>
+                        <MenuItem>Quản lý câu hỏi</MenuItem>
                     </SubMenu>
 
                 </Menu>
@@ -96,4 +107,4 @@ const Sidebar = (props) => {
     )
 }
 
-export default Sidebar;
+export default (Sidebar);
