@@ -22,9 +22,7 @@ const Sidebar = (props) => {
 
     console.log('collapsed', collapsed)
 
-    const handleDashboard = () => {
 
-    }
     return (
         <ProSidebar
             image={sidebarBg}
@@ -56,7 +54,6 @@ const Sidebar = (props) => {
                     <MenuItem
                         icon={<MdDashboard />}
                         suffix={<span className="badge red">New</span>}
-                        onClick={() => { handleDashboard() }}
                     >
                         <NavLink to='/admin'>Dashboard</NavLink>
                     </MenuItem>
