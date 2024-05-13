@@ -1,0 +1,62 @@
+
+.manage-user-main{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    .title{
+        font-weight: 600;
+        font-size: 20px;
+        padding-top: 10px;
+    }
+    .table-users-container{
+        
+    }
+    .manage-user-content{
+        .add-new-user{
+           .btn-icon{
+            display: flex;
+            align-items: center;
+            gap: 3px;
+           }
+           
+        }
+    }
+}
+
+.modal-main{
+    .img-preview{
+        height: 140px;
+        border: 1px dashed #ccc;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #ccc;
+            img {
+                max-width: 100%;
+                max-height: 100%;
+            }
+    }
+.upload-file{
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    background: #dcdcdc;
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    // border: 1px solid;
+    padding: 2px 8px;
+    border-radius: 3px;
+    &:hover{
+        background: #ccc;
+    }
+    .lable-update-img{
+        display: flex;
+        align-items: center;
+        border-radius: 3px;
+        gap: 3px;
+    cursor: pointer;
+    }
+}
+    
+}
