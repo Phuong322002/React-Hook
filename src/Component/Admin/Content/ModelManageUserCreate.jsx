@@ -5,6 +5,8 @@ import './ModalManage.scss'
 import { FcPlus } from "react-icons/fc";
 import { FaTimes } from "react-icons/fa";
 import axios from 'axios'
+import { ToastContainer, toast } from 'react-toastify';
+import { AxiosCreateUser } from '../../../Services/axiosCreateUser';
 
 const ModalManageUserCreate = (props) => {
     const { show, handleShowHide } = props
@@ -27,10 +29,10 @@ const ModalManageUserCreate = (props) => {
     const handleUploadImage = (event) => {
 
         if (event.target && event.target.files && event.target.files[0]) {
+            // URL.createObjectURL(event.target.files[0]) dòng code này sẽ lấy được ảnh từ dưới file của máy tính lên
             setPreviewImage(URL.createObjectURL(event.target.files[0]))
             setAvatar(event.target.files[0])
         }
-        // URL.createObjectURL(event.target.files[0]) dòng code này sẽ lấy được ảnh từ dưới file của máy tính lên
         console.log('upload image', URL.createObjectURL(event.target.files[0]))
     }
 
@@ -45,20 +47,44 @@ const ModalManageUserCreate = (props) => {
 
     }
 
+    const validateEmail = (email) => {
+        return String(email)
+            .toLowerCase()
+            .match(
+                /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+            );
+    };
+
     const handleCreateUser = async () => {
+        //khi gửi data lên phía server thì Validate
+        // 1) validate
+        const isEmail = validateEmail(email)
+        console.log('isEmail', isEmail)
+        // if (!isEmail) {
+        //     toast.error('email invalid')
+        //     return
+        // }
 
+        if (password.length < 6) {
+            toast.error('Password must have more than 6 characters')
+            return;
+        }
+
+        // 2) gọi API gửi dữ liệu lên server
         console.log('role1', role)
+        //gửi data lên server qua form data 
+        const data = await AxiosCreateUser(email, password, username, role, avatar)
 
-        const data = new FormData();
-        data.append('email', email);
-        data.append('password', password);
-        data.append('username', username);
-        data.append('role', role);
-        data.append('userImage', avatar);
+        console.log('res', data)
+        if (data && data.EC === 0) {
+            toast.success(data.EM)
+            handleDisplayModal()
+        }
 
-        const res = await axios.post('http://localhost:8081/api/v1/participant', data);
-        console.log('res', res)
-        handleDisplayModal()
+        if (data && data.EC !== 0) {
+            toast.error(data.EM)
+            return
+        }
 
     }
 
