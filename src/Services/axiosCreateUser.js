@@ -11,6 +11,7 @@ const AxiosCreateUser = (email, password, username, role, avatar) => {
     data.append('role', role);
     data.append('userImage', avatar);
     
+    // return ra cục data và phía FE sẽ nhận được cục data này thông qua await hàm này
     return instance.post('api/v1/participant', data);
     
 }

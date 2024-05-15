@@ -72,7 +72,7 @@ const ModalManageUserCreate = (props) => {
 
         // 2) gọi API gửi dữ liệu lên server
         console.log('role1', role)
-        //gửi data lên server qua form data 
+        //nhận được cục data từ file axiosCreateUser
         const data = await AxiosCreateUser(email, password, username, role, avatar)
 
         console.log('res', data)

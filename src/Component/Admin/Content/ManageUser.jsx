@@ -17,7 +17,7 @@ const ManageUser = (props) => {
             </div>
             <div className="manage-user-content">
                 <div className="add-new-user">
-                    <button className="btn btn-primary btn-icon " onClick={() => { handleShowHide() }} onclick={() => { this.blur() }}> <FcPlus /> Add new user</button>
+                    <button className="btn btn-primary btn-icon " onClick={() => { handleShowHide() }} > <FcPlus /> Add new user</button>
 
                 </div>
                 <div className="table-users-container">

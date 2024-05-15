@@ -16,7 +16,7 @@ instance.interceptors.request.use(function (config) {
   });
 
 
-  //LÚC NÀY PHÍA SERVER GỬI RESPONSE VỀ CLIENT NHƯNG AXIOS === INSTANCE INTERCEPTORS CAN THIỆP VÀO RESPONSE NÀY
+  //LÚC NÀY PHÍA SERVER GỬI RESPONSE VỀ CLIENT NHƯNG AXIOS === INSTANCE INTERCEPTORS CAN THIỆP VÀO RESPONSE NÀY ĐỂ LẤY CỤC DATA
 // Add a response interceptor
 instance.interceptors.response.use(function (response) {
     console.log('response',response.data)
