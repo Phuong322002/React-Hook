@@ -63,6 +63,10 @@ const Sidebar = (props) => {
                         icon={<FaGem />}
                         title='Features'
                     >
+                        {/* có 2 cách:
+                          cách 1: <MenuItem><NavLink to='/admin/manage-user'>Quản lý users</NavLink></MenuItem>
+                        cách 2:<MenuItem><NavLink to='manage-user'>Quản lý users</NavLink></MenuItem>
+                        */}
                         <MenuItem><NavLink to='manage-user'>Quản lý users</NavLink></MenuItem>
                         <MenuItem>Quản lý Quiz</MenuItem>
                         <MenuItem>Quản lý câu hỏi</MenuItem>

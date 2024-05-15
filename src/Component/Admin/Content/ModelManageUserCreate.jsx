@@ -64,7 +64,6 @@ const ModalManageUserCreate = (props) => {
         //     toast.error('email invalid')
         //     return
         // }
-
         if (password.length < 6) {
             toast.error('Password must have more than 6 characters')
             return;

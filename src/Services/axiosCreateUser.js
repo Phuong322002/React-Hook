@@ -16,4 +16,13 @@ const AxiosCreateUser = (email, password, username, role, avatar) => {
     
 }
 
-export {AxiosCreateUser}
+//gọi API
+const getUser = () => {
+    return instance.get('api/v1/participant/all')
+}
+
+export {
+    AxiosCreateUser,
+    getUser
+
+}

@@ -63,6 +63,12 @@ body {
  .main-container{
 
     .route-app-container{
+      video{
+        position: fixed;
+        bottom: -60px;
+        //width: 100vw; full màn hình máy tính
+        width: 100vw;
+      }
       .content-container{
         width: 800px ;
         position: relative;
@@ -100,8 +106,3 @@ body {
 
 
 
-video{
-  position: fixed;
-  bottom: -60px;
-  width: 100vw;
-}

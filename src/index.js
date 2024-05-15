@@ -26,7 +26,7 @@ root.render(
     <Routes>
     <Route path="/" element={<App />} >
         <Route index element={<HomePage />} />
-        <Route path="/user" element={<Users />} />
+        <Route path="user" element={<Users />} />
     </Route>
     <Route path="/admin" element={<Admin />} >
         <Route index element={<Dashboard/>}/>
