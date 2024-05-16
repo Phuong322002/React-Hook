@@ -9,7 +9,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import { AxiosCreateUser } from '../../../Services/axiosCreateUser';
 
 const ModalManageUserCreate = (props) => {
-    const { show, handleShowHide } = props
+    const { show, handleShowHide, fetchGetDataUserAll } = props
 
     console.log('show', show)
 
@@ -71,18 +71,19 @@ const ModalManageUserCreate = (props) => {
 
         // 2) gọi API gửi dữ liệu lên server
         console.log('role1', role)
-        //nhận được cục data từ file axiosCreateUser
-        const data = await AxiosCreateUser(email, password, username, role, avatar)
-
-        console.log('res', data)
-        if (data && data.EC === 0) {
-            toast.success(data.EM)
+        //gửi cục data lên file axiosCreateUser
+        const response = await AxiosCreateUser(email, password, username, role, avatar)
+        console.log('res', response)
+        if (response && response.EC === 0) {
+            toast.success(response.EM)
             handleDisplayModal()
+            //sau khi tạo(create) thành công user thì tiếp theo ta lấy data mới về bằng cách gọi lại hàm lấy data của component cha từ việc gọi API vs method get
+            // Đây là hàm lấy data
+            await fetchGetDataUserAll()
         }
-
-        if (data && data.EC !== 0) {
-            toast.error(data.EM)
-            return
+        if (response && response.EC !== 0) {
+            toast.error(response.EM)
+            return;
         }
 
     }

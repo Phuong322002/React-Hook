@@ -24,5 +24,4 @@ const getUser = () => {
 export {
     AxiosCreateUser,
     getUser
-
 }

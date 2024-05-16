@@ -1,25 +1,9 @@
-import { useEffect, useState } from "react";
-import { getUser } from "../../../Services/axiosCreateUser";
+
 
 const TableComponent = (props) => {
 
-    const [listUser, setListUser] = useState([])
+    const { listUser } = props
 
-    console.log('listUser', listUser)
-    //để get data từ phía back-end về ta dùng hàm usEffect
-    // Không viết async và await trong hàm useEffect lên tách chúng ra
-    useEffect(() => {
-        fetchGetDataUserAll()
-    }, [])
-
-    const fetchGetDataUserAll = async () => {
-        const res = await getUser()
-        console.log('ccsdas', res.DT)
-        if (res.EC === 0) {
-            setListUser(res.DT)
-
-        }
-    }
 
     return (
         <>
