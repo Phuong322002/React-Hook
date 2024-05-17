@@ -2,9 +2,11 @@
 
 const TableComponent = (props) => {
 
-    const { listUser } = props
+    const { listUser, handleShowHideModalUpdate } = props
 
-
+    const displayModalUpdate = (user) => {
+        handleShowHideModalUpdate(user)
+    }
     return (
         <>
             <table className="table  table-hover table-bordered">
@@ -28,15 +30,15 @@ const TableComponent = (props) => {
                                 <td>{user.role}</td>
                                 <td>
                                     <button className="btn btn-info">View</button>
-                                    <button className="btn btn-danger mx-3">Delete</button>
-                                    <button className="btn btn-warning">Edit</button>
+                                    <button className="btn btn-warning mx-3" onClick={() => { displayModalUpdate(user) }}>Edit</button>
+                                    <button className="btn btn-danger ">Delete</button>
                                 </td>
                             </tr>
                         )
                     })}
                     {listUser && listUser.length === 0 &&
                         <tr>
-                            <td colSpan={'4'}>Not Found User</td>
+                            <td colSpan={'5'}>Not Found User</td>
                         </tr>
                     }
                 </tbody>

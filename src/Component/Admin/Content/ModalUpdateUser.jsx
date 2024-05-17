@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import './ModalManage.scss'
@@ -7,10 +7,13 @@ import { FaTimes } from "react-icons/fa";
 import axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify';
 import { AxiosCreateUser } from '../../../Services/axiosCreateUser';
+import _ from 'lodash'
 
-const ModalManageUserCreate = (props) => {
-    const { show, handleShowHide, fetchGetDataUserAll } = props
+const ModalUpdateUser = (props) => {
+    const { show1, handleShowHide123, fetchGetDataUserAll, updateAUser } = props
 
+    console.log('data user ob', updateAUser)
+    console.log('show', show1)
 
     // // const [show, setShow] = useState(false);
     // const handleClose = () => setShow(false);
@@ -23,8 +26,27 @@ const ModalManageUserCreate = (props) => {
     const [avatar, setAvatar] = useState('')
     const [previewImage, setPreviewImage] = useState('')
 
-    console.log('role', role)
 
+    console.log('wwww', role)
+
+    useEffect(() => {
+        console.log('bb', updateAUser.email)
+        console.log('show1', props.show)
+
+        if (!_.isEmpty(updateAUser) && show1 === true) {
+            setEmail(updateAUser.email)
+            // setPassword(updateAUser.password)
+            setUsername(updateAUser.username)
+            console.log('updateAUser.role', updateAUser.role)
+            setRole(updateAUser.role)
+            setAvatar('')
+            if (updateAUser.image) {
+                setPreviewImage(`data:image/jpeg;base64,${updateAUser.image}`)
+            }
+        }
+    }, [updateAUser]) //Mỗi lần updateAUser thì tao muốn cái đống shit kia phải cập nhật lại state của chính bản thân nó, chính là cái đống shit trong hàm useEffect()
+
+    console.log('rolee', role)
     const handleUploadImage = (event) => {
         if (event.target && event.target.files && event.target.files[0]) {
             // URL.createObjectURL(event.target.files[0]) dòng code này sẽ lấy được ảnh từ dưới file của máy tính lên
@@ -35,15 +57,21 @@ const ModalManageUserCreate = (props) => {
     }
 
     const handleDisplayModal = () => {
-        handleShowHide(show)
-        setEmail('')
-        setPassword('')
-        setUsername('')
-        setRole('USER')
-        setAvatar('')
-        setPreviewImage('')
+        // console.log('all', show1)
+        handleShowHide123()
+        if (show1 === false) {
+            setEmail('')
+            setPassword('')
+            setUsername('')
+            setRole('USER')
+            setAvatar('')
+        } else {
+            setPreviewImage('')
+        }
+
 
     }
+    console.log('all', show1)
 
     const validateEmail = (email) => {
         return String(email)
@@ -85,7 +113,7 @@ const ModalManageUserCreate = (props) => {
         }
 
     }
-
+    console.log('emaill', email)
     return (
         <>
             {/* <Button variant="primary" onClick={handleShow}>
@@ -93,14 +121,14 @@ const ModalManageUserCreate = (props) => {
             </Button> */}
 
             <Modal
-                show={show}
+                show={show1}
                 // onHide={handleClose}
                 size="xl"
                 backdrop='static'
                 className='modal-main'
             >
                 <Modal.Header >
-                    <Modal.Title>Modal heading</Modal.Title> <FaTimes onClick={() => { handleDisplayModal() }} />
+                    <Modal.Title>Update a user</Modal.Title> <FaTimes onClick={() => { handleDisplayModal() }} />
                 </Modal.Header>
                 <Modal.Body>
                     <form className="row g-3">
@@ -111,7 +139,7 @@ const ModalManageUserCreate = (props) => {
                                 className="form-control"
                                 onChange={(e) => { return setEmail(e.target.value) }}
                                 value={email}
-
+                                disabled
                             />
                         </div>
 
@@ -122,6 +150,7 @@ const ModalManageUserCreate = (props) => {
                                 className="form-control"
                                 onChange={(e) => { return setPassword(e.target.value) }}
                                 value={password}
+                                disabled
                             />
                         </div>
 
@@ -140,6 +169,7 @@ const ModalManageUserCreate = (props) => {
                                 id="inputState"
                                 className="form-select"
                                 onChange={(e) => { return setRole(e.target.value) }}
+                                value={role}
                             >
                                 <option value='USER'>USER</option>
                                 <option value='ADMIN'>ADMIN</option>
@@ -175,8 +205,7 @@ const ModalManageUserCreate = (props) => {
                         Close
                     </Button>
                     <Button variant="primary" onClick={() => { handleCreateUser() }}>
-                        {/* <Button> */}
-                        Save Changes
+                        Update user
                     </Button>
                 </Modal.Footer>
             </Modal >
@@ -184,4 +213,4 @@ const ModalManageUserCreate = (props) => {
     );
 }
 
-export default ModalManageUserCreate;
+export default ModalUpdateUser;
