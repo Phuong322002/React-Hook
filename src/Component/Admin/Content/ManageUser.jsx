@@ -20,18 +20,19 @@ const ManageUser = (props) => {
     console.log('statusModal', setStatusModal)
 
     console.log('listUser', listUser)
-    //để get data từ phía back-end về ta dùng hàm usEffect
+    //Để get data từ phía back-end về ta dùng hàm usEffect, tại sao phải dùng hàm useEffect đó là để check xem DOM đã được gán vào chưa,
+    //nếu DOM đã đc gán thì chạy xong mà render tiếp theo sẽ chạy hàm useEfect đó là lý do tại sao get data về thì sử dụng hàm useEffect
     // Không viết async và await trong hàm useEffect lên tách chúng ra
     useEffect(() => {
         fetchGetDataUserAll()
     }, [])
+    //Hàm này để lấy data bên server và khi có data thì đưa data đó cho state của react quản lý data đó, 
     //cục data này có được từ việc gọi API bên axiosCreateUser với hàm getUser
     const fetchGetDataUserAll = async () => {
         const res = await getUser()
         console.log('ccsdas', res.DT)
         if (res.EC === 0) {
             setListUser(res.DT)
-
         }
     }
 
@@ -41,6 +42,11 @@ const ManageUser = (props) => {
         if (user) {
             setUpdateAUser(user)
         }
+    }
+
+    const resetUpdateUser = () => {
+        setUpdateAUser({})
+
     }
     console.log('?', updateAUser)
     return (
@@ -72,6 +78,7 @@ const ManageUser = (props) => {
                     handleShowHide123={handleShowHideModalUpdate}
                     fetchGetDataUserAll={fetchGetDataUserAll}
                     updateAUser={updateAUser}
+                    resetUpdateUser={resetUpdateUser}
                 />
 
             </div>

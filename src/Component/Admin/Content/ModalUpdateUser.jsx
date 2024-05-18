@@ -8,9 +8,10 @@ import axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify';
 import { AxiosCreateUser } from '../../../Services/axiosCreateUser';
 import _ from 'lodash'
+import { PutUpdateUser } from '../../../Services/axiosCreateUser';
 
 const ModalUpdateUser = (props) => {
-    const { show1, handleShowHide123, fetchGetDataUserAll, updateAUser } = props
+    const { show1, handleShowHide123, fetchGetDataUserAll, updateAUser, resetUpdateUser } = props
 
     console.log('data user ob', updateAUser)
     console.log('show', show1)
@@ -59,19 +60,17 @@ const ModalUpdateUser = (props) => {
     const handleDisplayModal = () => {
         // console.log('all', show1)
         handleShowHide123()
-        if (show1 === false) {
-            setEmail('')
-            setPassword('')
-            setUsername('')
-            setRole('USER')
-            setAvatar('')
-        } else {
-            setPreviewImage('')
-        }
+        // setEmail('')
+        // setPassword('')
+        setUsername('')
+        setRole('USER')
+        setAvatar('')
+        setPreviewImage('')
+        //reset update user
+        resetUpdateUser()
 
 
     }
-    console.log('all', show1)
 
     const validateEmail = (email) => {
         return String(email)
@@ -81,25 +80,26 @@ const ModalUpdateUser = (props) => {
             );
     };
 
-    const handleCreateUser = async () => {
+    const handleUpdateUser = async () => {
         //khi gửi data lên phía server thì Validate
         // 1) validate
-        const isEmail = validateEmail(email)
-        console.log('isEmail', isEmail)
-        // if (!isEmail) {
-        //     toast.error('email invalid')
-        //     return
+        // const isEmail = validateEmail(email)
+        // console.log('isEmail', isEmail)
+        // // if (!isEmail) {
+        // //     toast.error('email invalid')
+        // //     return
+        // // }
+        // if (password.length < 6) {
+        //     toast.error('Password must have more than 6 characters')
+        //     return;
         // }
-        if (password.length < 6) {
-            toast.error('Password must have more than 6 characters')
-            return;
-        }
 
         // 2) gọi API gửi dữ liệu lên server
         console.log('role1', role)
-        //gửi cục data lên file axiosCreateUser
-        const response = await AxiosCreateUser(email, password, username, role, avatar)
-        console.log('res', response)
+        //gửi cục data lên file axiosCreateUser và kiểm tra nếu thành công or thất bại  nó sẽ đều nhận lại cục data mà server gửi về và chia ra 2 trường hợp ở dưới
+        const response = await PutUpdateUser(updateAUser.id, username, role, avatar)
+        console.log('res11', response)
+        // response.EC === 0 
         if (response && response.EC === 0) {
             toast.success(response.EM)
             handleDisplayModal()
@@ -204,7 +204,7 @@ const ModalUpdateUser = (props) => {
                     <Button variant="secondary" onClick={() => { handleDisplayModal() }}>
                         Close
                     </Button>
-                    <Button variant="primary" onClick={() => { handleCreateUser() }}>
+                    <Button variant="primary" onClick={() => { handleUpdateUser() }}>
                         Update user
                     </Button>
                 </Modal.Footer>
