@@ -34,8 +34,18 @@ const PutUpdateUser = (id, username, role, avatar) => {
     return instance.put('api/v1/participant', data);
 }
 
+const DeleteUser = (userId) => {
+    return instance.delete('api/v1/participant', {data : {id : userId}})
+}
+
+const PaginateTable = (page, limit) => {
+    return instance.get(`api/v1/participant?page=${page}&limit=${limit}`)
+}
+
 export {
     AxiosCreateUser,
     getUser,
-    PutUpdateUser
+    PutUpdateUser,
+    DeleteUser,
+    PaginateTable
 }

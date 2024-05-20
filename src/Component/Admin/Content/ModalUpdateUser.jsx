@@ -11,8 +11,9 @@ import _ from 'lodash'
 import { PutUpdateUser } from '../../../Services/axiosCreateUser';
 
 const ModalUpdateUser = (props) => {
-    const { show1, handleShowHide123, fetchGetDataUserAll, updateAUser, resetUpdateUser } = props
+    const { show1, handleShowHide123, fetchGetDataUserWithPaginate, updateAUser, resetUpdateUser, pagePaginate } = props
 
+    console.log('check pagePaginate', pagePaginate)
     console.log('data user ob', updateAUser)
     console.log('show', show1)
 
@@ -105,7 +106,7 @@ const ModalUpdateUser = (props) => {
             handleDisplayModal()
             //sau khi tạo(create) thành công user thì tiếp theo ta lấy data mới về bằng cách gọi lại hàm lấy data của component cha từ việc gọi API vs method get
             // Đây là hàm lấy data
-            await fetchGetDataUserAll()
+            await fetchGetDataUserWithPaginate(pagePaginate)
         }
         if (response && response.EC !== 0) {
             toast.error(response.EM)
@@ -137,7 +138,7 @@ const ModalUpdateUser = (props) => {
                             <input
                                 type="email"
                                 className="form-control"
-                                onChange={(e) => { return setEmail(e.target.value) }}
+                                // onChange={(e) => { return setEmail(e.target.value) }}
                                 value={email}
                                 disabled
                             />
@@ -148,7 +149,7 @@ const ModalUpdateUser = (props) => {
                             <input
                                 type="password"
                                 className="form-control"
-                                onChange={(e) => { return setPassword(e.target.value) }}
+                                // onChange={(e) => { return setPassword(e.target.value) }}
                                 value={password}
                                 disabled
                             />
