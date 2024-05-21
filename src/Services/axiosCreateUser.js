@@ -12,6 +12,7 @@ const AxiosCreateUser = (email, password, username, role, avatar) => {
     data.append('userImage', avatar);
     
     // return ra cục data và phía FE sẽ nhận được cục data này thông qua await hàm này
+    // method post này dùng form data thì chuyền dữ liệu kiểu này
     return instance.post('api/v1/participant', data);
 }
 
@@ -42,10 +43,16 @@ const PaginateTable = (page, limit) => {
     return instance.get(`api/v1/participant?page=${page}&limit=${limit}`)
 }
 
+const Login  = (userEmail, userPassword) => {
+    // method post này dùng kiểu x-www-form-urlencoded
+    return instance.post('api/v1/login', {email: userEmail, password: userPassword})
+}
+
 export {
     AxiosCreateUser,
     getUser,
     PutUpdateUser,
     DeleteUser,
-    PaginateTable
+    PaginateTable,
+    Login
 }

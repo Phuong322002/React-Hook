@@ -13,7 +13,7 @@ const ManageUser = (props) => {
     const LIMIT_USER = 6;
 
     const [pageCount, setPageCount] = useState(0);
-    const [pagePaginate, setPagePaginate] = useState(1)
+    const [pagePaginateCurr, setPagePaginateCurr] = useState(1)
 
 
     const [statusModal, setStatusModal] = useState(false)
@@ -39,7 +39,7 @@ const ManageUser = (props) => {
     // Không viết async và await trong hàm useEffect lên tách chúng ra
     useEffect(() => {
         // fetchGetDataUserAll()
-        fetchGetDataUserWithPaginate(pagePaginate)
+        fetchGetDataUserWithPaginate(pagePaginateCurr)
     }, [])
 
 
@@ -97,12 +97,12 @@ const ManageUser = (props) => {
         }
     }
 
-    const test = (m) => {
-        console.log('vv', m)
-        setPagePaginate(m)
+    const pageCurrent = (pageCurr) => {
+        console.log('vv', pageCurr)
+        setPagePaginateCurr(pageCurr)
     }
 
-    console.log('?', pagePaginate)
+    console.log('?', pagePaginateCurr)
     return (
         <div className="manage-user-main">
             <div className="title" >
@@ -132,7 +132,8 @@ const ManageUser = (props) => {
                         handleShowHideModalDeleteUser={handleShowHideModalDeleteUser}
                         pageCount={pageCount}
                         fetchGetDataUserWithPaginate={fetchGetDataUserWithPaginate}
-                        test={test}
+                        pageCurrent={pageCurrent}
+                        pagePaginateCurr={pagePaginateCurr}
                     />
                 </div>
                 <ModalManageUserCreate
@@ -140,7 +141,8 @@ const ManageUser = (props) => {
                     handleShowHide={handleShowHide}
                     fetchGetDataUserAll={fetchGetDataUserAll}
                     fetchGetDataUserWithPaginate={fetchGetDataUserWithPaginate}
-                    pagePaginate={pagePaginate}
+                    pagePaginateCurr={pagePaginateCurr}
+                    pageCurrent={pageCurrent}
                 />
 
                 <ModalUpdateUser
@@ -150,7 +152,7 @@ const ManageUser = (props) => {
                     fetchGetDataUserWithPaginate={fetchGetDataUserWithPaginate}
                     updateAUser={updateAUser}
                     resetUpdateUser={resetUpdateUser}
-                    pagePaginate={pagePaginate}
+                    pagePaginateCurr={pagePaginateCurr}
                 />
 
                 <ModalViewDetailUser
@@ -166,8 +168,10 @@ const ManageUser = (props) => {
                     objUserDelete={objUserDelete}
                     // fetchGetDataUserAll={fetchGetDataUserAll}
                     fetchGetDataUserWithPaginate={fetchGetDataUserWithPaginate}
-                    pagePaginate={pagePaginate}
-                    setPagePaginate={setPagePaginate}
+                    pagePaginateCurr={pagePaginateCurr}
+                    setPagePaginateCurr={setPagePaginateCurr}
+                    pageCurrent={pageCurrent}
+
                 />
             </div>
         </div>

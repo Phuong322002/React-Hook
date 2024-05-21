@@ -8,7 +8,7 @@ const TableWithPaginate = (props) => {
 
     const { listUser, handleShowHideModalUpdate, handleShowHideViewUSer,
         handleShowHideModalDeleteUser, pageCount, fetchGetDataUserWithPaginate,
-        test, pagePaginate } = props
+        pageCurrent, pagePaginateCurr } = props
 
     const displayModalUpdate = (user) => {
         handleShowHideModalUpdate(user)
@@ -24,7 +24,7 @@ const TableWithPaginate = (props) => {
 
     const handlePageClick = (event) => {
         // setPagePaginate(+event.selected + 1)
-        test(+event.selected + 1)
+        pageCurrent(+event.selected + 1)
         fetchGetDataUserWithPaginate(+event.selected + 1)
         console.log(`User requested page number ${event.selected}`);
     };
@@ -68,12 +68,12 @@ const TableWithPaginate = (props) => {
             </table>
             <div className='paginate-list-user'>
                 <ReactPaginate
-                    nextLabel="next >"
+                    nextLabel=">"
                     onPageChange={handlePageClick}
                     pageRangeDisplayed={3}
                     marginPagesDisplayed={2}
                     pageCount={pageCount}
-                    previousLabel="< previous"
+                    previousLabel="<"
                     pageClassName="page-item"
                     pageLinkClassName="page-link"
                     previousClassName="page-item"
@@ -86,6 +86,8 @@ const TableWithPaginate = (props) => {
                     containerClassName="pagination"
                     activeClassName="active"
                     renderOnZeroPageCount={null}
+                    //forcePage={pagePaginateCurr - 1} dòng code này sẽ giúp thanh paginate của back về trang 1
+                    forcePage={pagePaginateCurr - 1}
                 />
             </div>
 

@@ -11,9 +11,9 @@ import _ from 'lodash'
 import { PutUpdateUser } from '../../../Services/axiosCreateUser';
 
 const ModalUpdateUser = (props) => {
-    const { show1, handleShowHide123, fetchGetDataUserWithPaginate, updateAUser, resetUpdateUser, pagePaginate } = props
+    const { show1, handleShowHide123, fetchGetDataUserWithPaginate, updateAUser, resetUpdateUser, pagePaginateCurr } = props
 
-    console.log('check pagePaginate', pagePaginate)
+    console.log('check pagePaginateCurr', pagePaginateCurr)
     console.log('data user ob', updateAUser)
     console.log('show', show1)
 
@@ -106,7 +106,7 @@ const ModalUpdateUser = (props) => {
             handleDisplayModal()
             //sau khi tạo(create) thành công user thì tiếp theo ta lấy data mới về bằng cách gọi lại hàm lấy data của component cha từ việc gọi API vs method get
             // Đây là hàm lấy data
-            await fetchGetDataUserWithPaginate(pagePaginate)
+            await fetchGetDataUserWithPaginate(pagePaginateCurr)
         }
         if (response && response.EC !== 0) {
             toast.error(response.EM)

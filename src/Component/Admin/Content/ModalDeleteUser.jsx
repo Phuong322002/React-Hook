@@ -7,7 +7,7 @@ import { toast } from 'react-toastify';
 
 const ModalDeleteUser = (props) => {
 
-    const { statusModalDelete, setStatusModalDelete, objUserDelete, fetchGetDataUserWithPaginate, pagePaginate } = props
+    const { statusModalDelete, setStatusModalDelete, objUserDelete, fetchGetDataUserWithPaginate, pageCurrent } = props
 
 
     const handleCanCel = () => {
@@ -22,7 +22,8 @@ const ModalDeleteUser = (props) => {
         if (res && res.EC === 0) {
             toast.success(res.EM)
             setStatusModalDelete(false)
-            await fetchGetDataUserWithPaginate(pagePaginate)
+            pageCurrent(1)
+            await fetchGetDataUserWithPaginate(1)
         }
 
         if (res && res.EC !== 0) {

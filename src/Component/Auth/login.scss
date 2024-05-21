@@ -1,0 +1,60 @@
+.login-man{
+    .login-header{
+        width: 100%;
+       text-align: right;
+       height: 50px;
+       display: flex;
+       align-items: center;
+       justify-content: flex-end;
+       padding-right: 100px;
+       .btn-signup{
+        margin-left: 8px;
+       }
+    }
+
+    .title{
+        margin-top: 20px;
+        display: flex;
+        justify-content: center;
+        font-size: 40px;
+        font-weight: 600;
+    }
+
+    .wellcome{
+        margin-top: 50px;
+        display: flex;
+        justify-content: center;
+    }
+
+    .form-content{
+        margin-top: 10px;
+        // border: 1px solid red;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+
+        .forgot-password{
+            // display: flex;
+            // justify-content: center;
+        }
+        
+
+        button{
+            border: none;
+            border-radius: 5px;
+            width: 100%;
+            height: 40px;
+            &:hover{
+                color: white;
+                background-color: black;
+            }
+            }
+        
+            .back_to_home{
+                display: flex;
+                justify-content: center;
+                cursor: pointer;
+            }
+    }
+}

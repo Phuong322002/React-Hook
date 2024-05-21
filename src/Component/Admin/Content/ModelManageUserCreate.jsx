@@ -9,7 +9,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import { AxiosCreateUser } from '../../../Services/axiosCreateUser';
 
 const ModalManageUserCreate = (props) => {
-    const { show, handleShowHide, fetchGetDataUserWithPaginate, pagePaginate } = props
+    const { show, handleShowHide, fetchGetDataUserWithPaginate, pageCurrent } = props
 
 
     // // const [show, setShow] = useState(false);
@@ -75,9 +75,11 @@ const ModalManageUserCreate = (props) => {
         if (response && response.EC === 0) {
             toast.success(response.EM)
             handleDisplayModal()
+            //sau khi ấn create user thì nó cập nhật lại trang hiện tại là trang 1
+            pageCurrent(1)
             //sau khi tạo(create) thành công user thì tiếp theo ta lấy data mới về bằng cách gọi lại hàm lấy data của component cha từ việc gọi API vs method get
             // Đây là hàm lấy data
-            await fetchGetDataUserWithPaginate(pagePaginate)
+            await fetchGetDataUserWithPaginate(1)
         }
         if (response && response.EC !== 0) {
             toast.error(response.EM)
