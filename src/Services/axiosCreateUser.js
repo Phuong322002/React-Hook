@@ -48,11 +48,16 @@ const Login  = (userEmail, userPassword) => {
     return instance.post('api/v1/login', {email: userEmail, password: userPassword})
 }
 
+const Register = (email, username, password) => {
+    return instance.post('api/v1/register', {email, username, password})
+}
+
 export {
     AxiosCreateUser,
     getUser,
     PutUpdateUser,
     DeleteUser,
     PaginateTable,
-    Login
+    Login,
+    Register
 }

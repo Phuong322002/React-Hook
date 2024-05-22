@@ -9,7 +9,15 @@
        padding-right: 100px;
        .btn-signup{
         margin-left: 8px;
+        border: none;
+        border-radius: 3px;
+        &:hover{
+            color: white;
+            background-color: black;
+        }
+        padding: 5px;
        }
+
     }
 
     .title{

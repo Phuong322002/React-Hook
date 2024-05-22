@@ -10,6 +10,8 @@ const LoginUser = (props) => {
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [showhidePassword, setShowHidePassword] = useState(false)
+
 
     const handleInputEmail = (event) => {
         setEmail(event.target.value)
@@ -38,11 +40,19 @@ const LoginUser = (props) => {
         navigate('/')
     }
 
+    const NavigateRigister = () => {
+        navigate('/register')
+    }
+
+    const handleShowHidePass = () => {
+        setShowHidePassword(!showhidePassword)
+    }
+
     return (
         <div className="login-man">
             <div className="login-header">
                 Don't have an account yet?
-                <button className='btn-signup'>Sign up</button>
+                <button className='btn-signup' onClick={() => { NavigateRigister() }}>Sign up</button>
             </div>
             <div className="title">
                 ReactHook
@@ -64,11 +74,24 @@ const LoginUser = (props) => {
                 <div className="form-group">
                     <label htmlFor="">Password</label>
                     <input
-                        type="password"
+                        type={showhidePassword === false ? 'password' : 'text'}
                         className="form-control"
                         value={password}
                         onChange={(event) => { handleInputPassword(event) }}
                     />
+                    <div className='showhide'>
+                        <label className='show-hide' htmlFor="">
+                            <label >
+                                Show password
+                            </label>
+                            <input
+                                id="check"
+                                type="checkbox"
+                                value={true}
+                                onChange={() => { handleShowHidePass() }}
+                            />
+                        </label>
+                    </div>
                 </div>
                 <div className='forgot-password '>
                     <span >Forgot password?</span>
