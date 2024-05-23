@@ -1,11 +1,11 @@
 
 import { useState } from 'react';
 import './register.scss'
-import { FaEye } from "react-icons/fa";
-import { IoMdEyeOff } from "react-icons/io";
 import { Register } from '../../Services/axiosCreateUser';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import { IoEyeSharp } from "react-icons/io5";
+
 
 const RegisterUser = (props) => {
 
@@ -67,11 +67,11 @@ const RegisterUser = (props) => {
 
 
 
-        if (response && response.EC === 0) {
+        if (response && +response.EC === 0) {
             toast.success(response.EM)
             navigate('/login')
         }
-        if (response && response.EC !== 0) {
+        if (response && +response.EC !== 0) {
             toast.error(response.EM);
             return;
         }
@@ -84,6 +84,10 @@ const RegisterUser = (props) => {
     return (
         <>
             <div className="register-main">
+                <div className='header-register'>
+                    Already have an account
+                    <button className='btn-back-login'>Log in</button>
+                </div>
                 <div className="title-resgister">
                     ReactHook - Register
                 </div>
@@ -101,7 +105,7 @@ const RegisterUser = (props) => {
                         />
 
                     </div>
-                    <div className="form-group">
+                    <div className="form-group pass">
                         <label htmlFor="">Password (*)</label>
                         <input
                             type={showhidePassword === false ? 'password' : 'text'}
@@ -109,6 +113,8 @@ const RegisterUser = (props) => {
                             value={password}
                             onChange={(event) => { inputPassword(event) }}
                         />
+
+                        <span className='icon-eye'><IoEyeSharp /></span>
                         <div className='showhide'>
                             <label className='show-hide' htmlFor="">
                                 <label >
