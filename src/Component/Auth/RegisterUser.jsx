@@ -5,6 +5,7 @@ import { Register } from '../../Services/axiosCreateUser';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { IoEyeSharp } from "react-icons/io5";
+import { IoMdEyeOff } from "react-icons/io";
 
 
 const RegisterUser = (props) => {
@@ -114,8 +115,11 @@ const RegisterUser = (props) => {
                             onChange={(event) => { inputPassword(event) }}
                         />
 
-                        <span className='icon-eye'><IoEyeSharp /></span>
-                        <div className='showhide'>
+                        <span className='icon-eye' onClick={() => { handleShowHidePass() }}>
+                            {showhidePassword === false ? <IoEyeSharp /> : <IoMdEyeOff />}
+                        </span>
+
+                        {/* <div className='showhide'>
                             <label className='show-hide' htmlFor="">
                                 <label >
                                     Show password
@@ -128,7 +132,8 @@ const RegisterUser = (props) => {
                                     onChange={() => { handleShowHidePass() }}
                                 />
                             </label>
-                        </div>
+                        </div> */}
+
                     </div>
 
                     <div className="form-group">
