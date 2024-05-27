@@ -3,8 +3,20 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+
+import { useDispatch } from 'react-redux';
+import { actionUserLogOut } from '../../redux/action/userLogout';
 
 const Header = () => {
+
+    const dispatch = useDispatch()
+
+    const account = useSelector((state) => state?.user?.account)
+    const isAuthecated = useSelector((state) => state?.user?.isAuthecated)
+
+    console.log('>>check account: ', account)
+    console.log('>> Check isAuthecated:', isAuthecated)
 
     const navigate = useNavigate();
 
@@ -14,6 +26,12 @@ const Header = () => {
 
     const handleSignUp = () => {
         navigate('/register')
+    }
+
+    const handleLogOut = () => {
+        console.log('isAuthecatedd', isAuthecated)
+        dispatch(actionUserLogOut())
+        navigate('/')
     }
 
     return (
@@ -32,14 +50,22 @@ const Header = () => {
                         <Nav.Link href="/admin">Admin</Nav.Link> */}
                     </Nav>
                     <Nav>
-                        <button className='btn-signin' onClick={() => { handleLogin() }} >Log in</button>
-                        <button className='btn-signup' onClick={() => { handleSignUp() }}>Sign up</button>
-                        {/* <NavDropdown title="Setting" id="basic-nav-dropdown">
-                            <NavDropdown.Item >Log in</NavDropdown.Item>
-                            <NavDropdown.Item >Log out</NavDropdown.Item>
-                            <NavDropdown.Item >Profile</NavDropdown.Item>
+                        {isAuthecated === false
+                            ?
+                            <>
+                                <button className='btn-signin' onClick={() => { handleLogin() }} >Log in</button>
+                                <button className='btn-signup' onClick={() => { handleSignUp() }}>Sign up</button>
+                            </>
+                            :
+                            <NavDropdown title="Setting" id="basic-nav-dropdown">
+                                {/* <NavDropdown.Item >Log in</NavDropdown.Item> */}
+                                <NavDropdown.Item onClick={() => { handleLogOut() }}>Log out</NavDropdown.Item>
+                                <NavDropdown.Item >Profile</NavDropdown.Item>
 
-                        </NavDropdown> */}
+                            </NavDropdown>
+                        }
+
+
                     </Nav>
                 </Navbar.Collapse>
             </Container>

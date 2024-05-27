@@ -8,6 +8,7 @@ import ModalViewDetailUser from "./ModalViewDetailUser";
 import ModalDeleteUser from "./ModalDeleteUser";
 import TableWithPaginate from "./TableWithPaginate";
 
+
 const ManageUser = (props) => {
 
     const LIMIT_USER = 6;
@@ -105,13 +106,13 @@ const ManageUser = (props) => {
     console.log('?', pagePaginateCurr)
     return (
         <div className="manage-user-main">
+
             <div className="title" >
                 ManageUser
             </div>
             <div className="manage-user-content">
                 <div className="add-new-user">
                     <button className="btn btn-primary btn-icon " onClick={() => { handleShowHide() }} > <FcPlus /> Add new user</button>
-
                 </div>
                 <div className="table-users-container">
                     {/* <TableComponent

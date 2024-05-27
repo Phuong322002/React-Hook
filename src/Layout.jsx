@@ -14,6 +14,15 @@ import Login from './Component/Auth/Login';
 import LoginUser from "./Component/Auth/Login";
 import { ToastContainer, toast } from 'react-toastify';
 import RegisterUser from "./Component/Auth/RegisterUser";
+import DetailQuiz from "./Component/User/DetailQuiz";
+
+const Notfound = () => {
+    return (
+        <div className="alert alert-danger mt-3 container" style={{ fontSize: '30px' }}>
+            404.ERROR!
+        </div>
+    )
+}
 
 const Layout = () => {
 
@@ -25,6 +34,8 @@ const Layout = () => {
                     <Route path="user" element={<Users />} />
                 </Route>
 
+                <Route path="/quiz/:id" element={<DetailQuiz />} />
+
                 <Route path="/admin" element={<Admin />} >
                     <Route index element={<Dashboard />} />
                     <Route path='manage-user' element={<ManageUser />} />
@@ -32,6 +43,8 @@ const Layout = () => {
 
                 <Route path='/login' element={<LoginUser />} />
                 <Route path="/register" element={<RegisterUser />} />
+                <Route path="*" element={<Notfound />} />
+
 
             </Routes>
             <ToastContainer

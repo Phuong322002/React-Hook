@@ -3,14 +3,20 @@ import './login.scss'
 import { useNavigate } from 'react-router-dom';
 import { Login } from '../../Services/axiosCreateUser';
 import { toast } from 'react-toastify';
+import { useDispatch } from 'react-redux'
+import { userLogin } from '../../redux/action/userLogin';
+import { ImSpinner2 } from "react-icons/im";
+
 
 const LoginUser = (props) => {
 
     const navigate = useNavigate()
+    const dispatch = useDispatch()
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [showhidePassword, setShowHidePassword] = useState(false)
+    const [isLoading, setIsLoading] = useState(false)
 
 
     const handleInputEmail = (event) => {
@@ -23,15 +29,19 @@ const LoginUser = (props) => {
 
     const handleLogin = async () => {
 
+        setIsLoading(true)
+
         const response = await Login(email, password)
         console.log('>>>check response: ', response)
-
         if (response && response.EC === 0) {
-            navigate('/')
+            dispatch(userLogin(response))
             toast.success(response.EM)
+            setIsLoading(false)
+            navigate('/')
         }
         if (response && response.EC !== 0) {
             toast.error(response.EM)
+            setIsLoading(false)
             return;
         }
     }
@@ -68,6 +78,7 @@ const LoginUser = (props) => {
                         className="form-control "
                         value={email}
                         onChange={(event) => { handleInputEmail(event) }}
+                        disabled={isLoading}
                     />
 
                 </div>
@@ -78,6 +89,7 @@ const LoginUser = (props) => {
                         className="form-control"
                         value={password}
                         onChange={(event) => { handleInputPassword(event) }}
+                        disabled={isLoading}
                     />
                     <div className='showhide'>
                         <label className='show-hide' htmlFor="">
@@ -97,11 +109,22 @@ const LoginUser = (props) => {
                     <span >Forgot password?</span>
                 </div>
                 <div >
-                    <button className='btn-login mx-auto' onClick={() => { handleLogin() }}>Log in</button>
+                    <button
+                        className='btn-login mx-auto'
+                        onClick={() => { handleLogin() }}
+                        disabled={isLoading}
+                    >
+                        {isLoading === true && <ImSpinner2 className='loader-icon' />}
+                        <span>Log in</span>
+                    </button>
                 </div>
-                <div className='back_to_home'>
-                    <span onClick={() => { handleBack() }}>&#60;&#60; Go back home</span>
-                </div>
+                {isLoading === false
+                    &&
+                    <div className='back_to_home'>
+                        <span onClick={() => { handleBack() }}>&#60;&#60; Go back home</span>
+                    </div>
+                }
+
             </div>
         </div>
     )

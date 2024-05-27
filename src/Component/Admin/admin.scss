@@ -26,10 +26,19 @@
 
     .admin-content{
       width: 100%;
+      position: relative;
+      .back-home{
+position: absolute;
+right: 0;
+top: 5px;
+margin-right: 10px;
+font-size: large;
+cursor: pointer;
+      }
 
         .admin-header{
           height: 40px;
-          border: 1px solid red;
+          // border: 1px solid red;
         }
 
         .admin-main-content{

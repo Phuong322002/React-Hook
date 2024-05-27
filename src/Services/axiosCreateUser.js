@@ -43,13 +43,22 @@ const PaginateTable = (page, limit) => {
     return instance.get(`api/v1/participant?page=${page}&limit=${limit}`)
 }
 
-const Login  = (userEmail, userPassword) => {
+const Login  = (userEmail, userPassword,delay) => {
     // method post này dùng kiểu x-www-form-urlencoded
-    return instance.post('api/v1/login', {email: userEmail, password: userPassword})
+    return instance.post('api/v1/login', {email: userEmail, password: userPassword, delay:500})
 }
 
 const Register = (email, username, password) => {
     return instance.post('api/v1/register', {email, username, password})
+}
+
+const getListQuiz = () => {
+    return instance.get('api/v1/quiz-by-participant')
+}
+
+const getDetailQuiz = (quizId) => {
+
+    return instance.get(`api/v1/questions-by-quiz?quizId=${quizId}`)
 }
 
 export {
@@ -59,5 +68,7 @@ export {
     DeleteUser,
     PaginateTable,
     Login,
-    Register
+    Register,
+    getListQuiz,
+    getDetailQuiz
 }

@@ -17,8 +17,10 @@ const ModalDeleteUser = (props) => {
     const handleDeleteUser = async () => {
         console.log('fetchGetDataUserWithPaginate', fetchGetDataUserWithPaginate)
 
+        //gửi request lên server
         const res = await DeleteUser(objUserDelete.id)
         console.log('ll', res)
+        // nhận lại những response từ phía server
         if (res && res.EC === 0) {
             toast.success(res.EM)
             setStatusModalDelete(false)

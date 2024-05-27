@@ -4,13 +4,23 @@ import './admin.scss'
 import { FaHeart, FaBars } from 'react-icons/fa';
 import { Outlet } from "react-router-dom";
 import 'react-toastify/dist/ReactToastify.css';
+import { IoHome } from "react-icons/io5";
+import { useNavigate } from "react-router-dom";
 
 const Admin = (props) => {
+
+    const navigate = useNavigate()
+
     const [status, setStatus] = useState(false);
 
     const handleShowHideSideBar = () => {
         setStatus(!status)
     }
+
+    const handleBackHome = () => {
+        navigate('/')
+    }
+
     return (
         <div className="admin-container">
             {/* 
@@ -36,12 +46,15 @@ const Admin = (props) => {
                 </>
             } */}
 
+
             <div className="admin-sidebar">
                 <Sidebar collapsed={status} />
             </div>
             <div className="admin-content" >
                 <div className="admin-header">
                     <FaBars onClick={() => { handleShowHideSideBar() }} />
+                    <IoHome className="back-home" onClick={() => { handleBackHome() }} />
+
                 </div>
                 <div className="admin-main-content">
                     <Outlet />

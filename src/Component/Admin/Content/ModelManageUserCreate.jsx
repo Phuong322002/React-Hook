@@ -29,6 +29,7 @@ const ModalManageUserCreate = (props) => {
         if (event.target && event.target.files && event.target.files[0]) {
             // URL.createObjectURL(event.target.files[0]) dòng code này sẽ lấy được ảnh từ dưới file của máy tính lên
             setPreviewImage(URL.createObjectURL(event.target.files[0]))
+
             setAvatar(event.target.files[0])
         }
         console.log('upload image', event.target.files[0])

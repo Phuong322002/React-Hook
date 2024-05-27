@@ -42,6 +42,22 @@
         flex-direction: column;
         gap: 15px;
 
+        .loader-icon {
+            margin-right: 7px;
+            top: 2px;
+            animation: spin 1s infinite linear;
+            color: red;
+        }
+
+        @keyframes spin {
+            from {
+                transform: scale(1) rotate(0deg);
+            }
+            to {
+                transform: scale(1) rotate(360deg);
+            }
+        }
+
         .forgot-password{
             // display: flex;
             // justify-content: center;
@@ -56,6 +72,13 @@
             &:hover{
                 color: white;
                 background-color: black;
+            }
+
+            &:disabled{
+                color: gainsboro;
+                background-color: RGBA( 169, 169, 169, 0.1 );
+                cursor:no-drop;
+                border: 1px solid gainsboro ;
             }
             }
         
