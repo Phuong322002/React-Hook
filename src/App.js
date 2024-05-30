@@ -1,7 +1,7 @@
 import './App.scss';
 import Header from './Component/Header/Header';
 import HomePage from './Component/Home/HomePage';
-import Users from './Component/User/Users';
+import Users from './Component/User/listQuiz';
 import Admin from './Component/Admin/Admins';  
 import { Link, Outlet } from 'react-router-dom';
 

@@ -3,7 +3,7 @@ import { getListQuiz } from "../../Services/axiosCreateUser"
 import './listquiz.scss'
 import { useNavigate } from "react-router-dom"
 
-const Users = (props) => {
+const ListQuiz = (props) => {
 
     const navigate = useNavigate()
 
@@ -22,8 +22,8 @@ const Users = (props) => {
 
     }
     const NavigateDeltailQuiz = (quiz) => {
-        console.log('quiz', quiz)
-        navigate(`/quiz/${quiz.id}`)
+        console.log('quizz', quiz)
+        navigate(`/quiz/${quiz.id}`, { state: { quizdescription: quiz.description } })
 
     }
 
@@ -51,4 +51,4 @@ const Users = (props) => {
     )
 }
 
-export default Users
+export default ListQuiz

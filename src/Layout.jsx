@@ -6,7 +6,7 @@ import {
 } from "react-router-dom";
 import App from './App';
 import HomePage from './Component/Home/HomePage';
-import Users from './Component/User/Users';
+import Users from './Component/User/listQuiz';
 import Admin from './Component/Admin/Admins';
 import Dashboard from './Component/Admin/Content/DashBoard';
 import ManageUser from './Component/Admin/Content/ManageUser';
@@ -15,6 +15,7 @@ import LoginUser from "./Component/Auth/Login";
 import { ToastContainer, toast } from 'react-toastify';
 import RegisterUser from "./Component/Auth/RegisterUser";
 import DetailQuiz from "./Component/User/DetailQuiz";
+import ListQuiz from "./Component/User/listQuiz";
 
 const Notfound = () => {
     return (
@@ -31,7 +32,7 @@ const Layout = () => {
             <Routes>
                 <Route path="/" element={<App />} >
                     <Route index element={<HomePage />} />
-                    <Route path="user" element={<Users />} />
+                    <Route path="user" element={<ListQuiz />} />
                 </Route>
 
                 <Route path="/quiz/:id" element={<DetailQuiz />} />
