@@ -68,7 +68,7 @@ const Sidebar = (props) => {
                         cách 2:<MenuItem><NavLink to='manage-user'>Quản lý users</NavLink></MenuItem>
                         */}
                         <MenuItem><NavLink to='manage-user'>Quản lý users</NavLink></MenuItem>
-                        <MenuItem>Quản lý Quiz</MenuItem>
+                        <MenuItem><NavLink to='manage-quiz'>Quản lý Quiz</NavLink></MenuItem>
                         <MenuItem>Quản lý câu hỏi</MenuItem>
                     </SubMenu>
 

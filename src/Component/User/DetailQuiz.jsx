@@ -5,6 +5,9 @@ import _ from 'lodash'
 import './detail.scss'
 import { useLocation } from "react-router-dom"
 import Question from "./Question"
+import { SubmitAnswer } from "../../Services/axiosCreateUser"
+import ModalSumit from "./ModalSubmitAnswer"
+
 const DetailQuiz = () => {
 
     const param = useParams() // lấy paramas trên đường link URL 
@@ -19,6 +22,8 @@ const DetailQuiz = () => {
     const [dataQuiz, setdataQuiz] = useState([])
     const [currQuiz, setCurrQuiz] = useState(0)
     const [disab, setdisab] = useState(false)
+    const [statusModalSubmit, setStatusModalSubmit] = useState(false)
+    const [dataResult, setDateResult] = useState({})
 
     //lấy detail quiz ta gọi API
     useEffect(() => {
@@ -45,6 +50,8 @@ const DetailQuiz = () => {
                             image = item.image
                         }
                         console.log('item answers: ', item)
+
+                        // Đặt cờ để biết câu hỏi nào chưa or đc chọn 
                         item.answers.isSelected = false
                         aw.push(item.answers)
                     })
@@ -98,14 +105,12 @@ const DetailQuiz = () => {
         }
     }
 
+
     const handleNext = () => {
         if (currQuiz < dataQuiz.length - 1) {
             setCurrQuiz(currQuiz + 1)
         }
     }
-    console.log('vv', dataQuiz)
-
-
     //3) lúc này khi ta click vào ô check box thì hàm này sẽ chạy đồng thời chuyền id của trả lời và id của câu hỏi
     const handleCheckBox = (answerId, questionId) => {
 
@@ -148,7 +153,58 @@ const DetailQuiz = () => {
             //11) Cuối cùng update dataQuiz
             setdataQuiz(dataQuizClone)
         }
+    }
 
+    console.log('vv', dataQuiz)
+
+    const handleSubmit = async () => {
+        // {
+        //     "quizId": 1,
+        //     "answers": [
+        //         { 
+        //             "questionId": 1,
+        //             "userAnswerId": [3]
+        //         },
+        //         { 
+        //             "questionId": 2,
+        //             "userAnswerId": [6]
+        //         }
+        //     ]
+        // }
+        console.log('>> check dataQuiz: ', dataQuiz)
+
+        const payload = {
+            quizId: +quizID,
+            answers: []
+        }
+
+
+        if (dataQuiz && dataQuiz.length > 0) {
+            const DataAnswers = dataQuiz.map((question, index) => {
+                console.log('question.answers: ', question.answers)
+                let userAnswerIdd = []
+                question.answers.forEach((a, index) => {
+                    if (a.isSelected === true) {
+                        userAnswerIdd.push(a.id)
+                    }
+                })
+                console.log('userAnswerId: ', userAnswerIdd)
+                return {
+                    questionId: +question.qustionsId,
+                    userAnswerId: userAnswerIdd
+                }
+            })
+            console.log('DataAnswers: ', DataAnswers)
+            payload.answers = DataAnswers
+        }
+        console.log('payload: ', payload)
+
+        const response = await SubmitAnswer(payload)
+        console.log('>>>>check response: ', response)
+        if (response && response.EC === 0) {
+            setStatusModalSubmit(true)
+            setDateResult(response.DT)
+        }
     }
 
     return (
@@ -191,8 +247,7 @@ const DetailQuiz = () => {
 
                     <button
                         className="btn btn-danger btn-finish"
-                    // onClick={() => { handleNext() }}
-                    // disabled={disab}
+                        onClick={() => { handleSubmit() }}
                     >
                         Finish
                     </button>
@@ -202,7 +257,11 @@ const DetailQuiz = () => {
             <div className="right-content">
                 count-down
             </div>
-
+            <ModalSumit
+                statusModalSubmit={statusModalSubmit}
+                setStatusModalSubmit={setStatusModalSubmit}
+                dataResult={dataResult}
+            />
         </div>
     )
 }

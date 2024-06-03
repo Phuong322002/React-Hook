@@ -61,6 +61,24 @@ const getDetailQuiz = (quizId) => {
     return instance.get(`api/v1/questions-by-quiz?quizId=${quizId}`)
 }
 
+const SubmitAnswer = (data) => {
+    return instance.post('api/v1/quiz-submit', {...data})
+}
+
+const CreateQuiz = (description, name, difficulty, quizImage) => {
+    const data = new FormData();
+    data.append('description', description);
+    data.append('name', name);
+    data.append('difficulty', difficulty);
+    data.append('quizImage', quizImage);
+
+    return instance.post('api/v1/quiz', data)
+}
+
+const getDataQuiz = () => {
+    return instance.get('api/v1/quiz/all')
+}
+
 export {
     AxiosCreateUser,
     getUser,
@@ -70,5 +88,8 @@ export {
     Login,
     Register,
     getListQuiz,
-    getDetailQuiz
+    getDetailQuiz,
+    SubmitAnswer,
+    CreateQuiz,
+    getDataQuiz
 }
