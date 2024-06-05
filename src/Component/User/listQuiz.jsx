@@ -23,6 +23,7 @@ const ListQuiz = (props) => {
     }
     const NavigateDeltailQuiz = (quiz) => {
         console.log('quizz', quiz)
+        //đoạn code dưới có thể gửi state qua component có đường dẫn trong hàm navigate()
         navigate(`/quiz/${quiz.id}`, { state: { quizdescription: quiz.description } })
 
     }

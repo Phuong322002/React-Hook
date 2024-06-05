@@ -7,6 +7,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import { IoHome } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 
+import PerfectScrollbar from 'react-perfect-scrollbar'
+
 const Admin = (props) => {
 
     const navigate = useNavigate()
@@ -57,7 +59,9 @@ const Admin = (props) => {
 
                 </div>
                 <div className="admin-main-content">
-                    <Outlet />
+                    <PerfectScrollbar>
+                        <Outlet />
+                    </PerfectScrollbar>
                 </div>
             </div>
 

@@ -36,6 +36,7 @@ const PutUpdateUser = (id, username, role, avatar) => {
 }
 
 const DeleteUser = (userId) => {
+    //delete không có paramater
     return instance.delete('api/v1/participant', {data : {id : userId}})
 }
 
@@ -79,6 +80,22 @@ const getDataQuiz = () => {
     return instance.get('api/v1/quiz/all')
 }
 
+const deleteQuiz = (idQuiz) => {
+    return instance.delete(`api/v1/quiz/${idQuiz}`)
+}
+
+const updateQuiz = (idQuizUpdate, descriptionQuizUpdate,  nameUpdate, difficultyUpdate, quizImageUpdate) => {
+
+    const data = new FormData();
+    data.append('id', idQuizUpdate);
+    data.append('description', descriptionQuizUpdate);
+    data.append('name', nameUpdate);
+    data.append('difficulty', difficultyUpdate);
+    data.append('quizImage', quizImageUpdate)
+
+    return instance.put('api/v1/quiz', data)
+}
+
 export {
     AxiosCreateUser,
     getUser,
@@ -91,5 +108,7 @@ export {
     getDetailQuiz,
     SubmitAnswer,
     CreateQuiz,
-    getDataQuiz
+    getDataQuiz,
+    deleteQuiz,
+    updateQuiz
 }
