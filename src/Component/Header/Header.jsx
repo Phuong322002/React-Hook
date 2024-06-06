@@ -13,6 +13,8 @@ const Header = () => {
     const dispatch = useDispatch()
 
     const account = useSelector((state) => state?.user?.account)
+
+    /// state?.user? (cụm này là status)
     const isAuthecated = useSelector((state) => state?.user?.isAuthecated)
 
     console.log('>>check account: ', account)
