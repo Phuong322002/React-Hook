@@ -41,7 +41,6 @@ const Question = (props) => {
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
-                                        value=""
                                         checked={answer.isSelected}
                                         //1) lấy ra value check, lấy id của câu trả lời khi ckick check box, lấy được id của câu hỏi
                                         onChange={(event) => { handleOnchangeInPutCheckBox(event, answer.id, dataQuiz.qustionsId) }} />

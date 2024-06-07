@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Select from 'react-select';
 import './question.scss'
 import { FaFolderPlus } from "react-icons/fa";
@@ -8,6 +8,8 @@ import { FiPlusCircle } from "react-icons/fi";
 import { AiOutlineMinusCircle } from "react-icons/ai";
 import { v4 as uuidv4 } from 'uuid';
 import _ from 'lodash'
+import Lightbox from "react-awesome-lightbox";
+import { getDataQuiz } from '../../../../Services/axiosCreateUser';
 
 const QuestionOfQuiz = () => {
 
@@ -23,21 +25,49 @@ const QuestionOfQuiz = () => {
     const [questions, setQuestions] = useState([
         {
             id: uuidv4(),
-            description: 'question 1',
+            description: '',
             imageFile: '',
             imageName: '',
             answers: [
                 {
                     id: uuidv4(),
-                    description: 'answer  1',
+                    description: '',
                     isCorrect: false
                 }
             ]
         }
 
     ])
+    const [statusLighBoxPreview, setStatusLighBoxPreview] = useState(false)
+    const [dataImagePreview, setDataPreview] = useState({})
+    const [listQuiz, setListQuiz] = useState([])
 
-    console.log('>>questions: ', questions)
+
+    useEffect(() => {
+        fetchDataListQuiz()
+    }, [])
+
+    const fetchDataListQuiz = async () => {
+        const response = await getDataQuiz()
+        console.log('>>check respons list quiz: ', response)
+        if (response && response.EC === 0) {
+            console.log('>>Check sele: ', response.DT)
+
+            const newArrQuiz = response.DT.map((quiz, index) => {
+
+                return {
+                    value: quiz.id,
+                    label: quiz.description
+                }
+            })
+            console.log('>> check new arr: ', newArrQuiz)
+
+            setListQuiz(newArrQuiz)
+
+        }
+    }
+
+    console.log('listQuiz: ', listQuiz)
 
     const handleAddRemoveQuestion = (type, id) => {
         console.log(type, id)
@@ -103,6 +133,86 @@ const QuestionOfQuiz = () => {
         }
     }
 
+    const handleOnChangeQuestion = (e, idQuestion) => {
+        const questionClone = _.cloneDeep(questions);
+        console.log('check daa: ', questionClone)
+        const index = questionClone.findIndex((q, index) => {
+            return q.id === idQuestion
+        })
+
+        questionClone[index].description = e.target.value
+        setQuestions(questionClone)
+
+    }
+
+    const handleOnChangeImgFile = (e, idQuestion) => {
+        console.log(e.target.files[0], idQuestion)
+        const questionClone = _.cloneDeep(questions)
+        const index = questionClone.findIndex((q) => {
+            return q.id === idQuestion
+        })
+        questionClone[index].imageFile = e.target.files[0]
+        questionClone[index].imageName = e.target.files[0].name
+        setQuestions(questionClone)
+    }
+
+    const handleOnChangeCheckBox = (e, idQuestion, idAnswer) => {
+        console.log(e.target.checked, idQuestion, idAnswer)
+        const questionClone = _.cloneDeep(questions)
+        const index = questionClone.findIndex((q) => {
+            return q.id === idQuestion
+        })
+        questionClone[index].answers = questionClone[index].answers.map((answer, index) => {
+            if (answer.id === idAnswer) {
+                answer.isCorrect = e.target.checked
+            }
+            return answer
+        })
+        setQuestions(questionClone)
+    }
+
+    const handleOnchangeInputAnswer = (e, idQuestion, idAnswer) => {
+        const questionClone = _.cloneDeep(questions)
+        const index = questionClone.findIndex((q) => {
+            return q.id === idQuestion
+        })
+        questionClone[index].answers = questionClone[index].answers.map((answer, index) => {
+            if (answer.id === idAnswer) {
+                answer.description = e.target.value
+            }
+            return answer
+        })
+        setQuestions(questionClone)
+    }
+
+
+    const handleCreateQuestion = () => {
+        console.log('>>questions: ', questions)
+
+    }
+
+    const handleDisplayLightbox = (event, idQuestion) => {
+        setStatusLighBoxPreview(true)
+        console.log(idQuestion)
+
+        const questionClone = _.cloneDeep(questions)
+
+        const index = questionClone.findIndex((q) => {
+            return q.id === idQuestion
+        })
+
+        if (index > -1) {
+            setDataPreview({
+                title: questionClone[index].imageName,
+                image: questionClone[index].imageFile
+            })
+        }
+
+
+    }
+
+    console.log('DataPreview: ', dataImagePreview.image)
+
     return (
         <div className="question-container">
             <div className="title-question">
@@ -114,7 +224,7 @@ const QuestionOfQuiz = () => {
                 <Select
                     defaultValue={selectedQuestion}
                     onChange={setSelectedQuestion}
-                    options={options}
+                    options={listQuiz}
                 />
             </div>
             <div className='body-content'>
@@ -131,15 +241,32 @@ const QuestionOfQuiz = () => {
                                         className="form-control"
                                         placeholder="name@example.com"
                                         value={question.description}
+                                        onChange={(event) => { handleOnChangeQuestion(event, question.id) }}
                                     />
                                     <label>Question {index + 1}</label>
                                 </div>
                                 <div className='upload-image'>
-                                    <label htmlFor="upload-image" className='label-upload'> <FaImage style={{ color: 'green', fontSize: '20px' }} /> </label>
-                                    <input type="file" id='upload-image' hidden />
+                                    <label htmlFor={`${question.id}`} className='label-upload'> <FaImage style={{ color: 'green', fontSize: '20px' }} /> </label>
+                                    <input
+                                        type="file"
+                                        id={`${question.id}`}
+                                        hidden
+                                        onChange={(event) => { handleOnChangeImgFile(event, question.id) }}
+                                    />
                                 </div>
                                 <span className='display-file'>
-                                    0 file is upload
+                                    {question && question.imageFile
+                                        ?
+                                        <span
+                                            onClick={(event) => { handleDisplayLightbox(event, question.id) }}
+                                        >
+                                            {question.imageName}
+                                        </span>
+
+                                        :
+                                        '0 file is upload'
+                                    }
+
                                 </span>
                                 <span
                                     style={{ marginTop: '12px', color: 'red', fontSize: '25px', marginLeft: '30px', cursor: 'pointer' }}
@@ -166,7 +293,8 @@ const QuestionOfQuiz = () => {
                                             <input
                                                 className="form-check-input"
                                                 type="checkbox"
-                                                value=""
+                                                checked={answer.isCorrect}
+                                                onChange={(event) => { handleOnChangeCheckBox(event, question.id, answer.id) }}
                                             />
                                         </div>
                                         <div className="form-floating mb-3 input-answer ">
@@ -175,6 +303,7 @@ const QuestionOfQuiz = () => {
                                                 className="form-control"
                                                 placeholder="name@example.com"
                                                 value={answer.description}
+                                                onChange={(event) => { handleOnchangeInputAnswer(event, question.id, answer.id) }}
                                             />
                                             <label>Answer {index + 1}</label>
                                         </div>
@@ -203,9 +332,26 @@ const QuestionOfQuiz = () => {
                     )
                 })}
 
-
-
             </div>
+            {questions && questions.length > 0 &&
+                <div >
+                    <button
+                        className='btn btn-danger'
+                        onClick={() => { handleCreateQuestion() }}
+                    >
+                        Create Question
+                    </button>
+                </div>
+            }
+            {statusLighBoxPreview === true &&
+                <Lightbox
+                    image={URL.createObjectURL(dataImagePreview.image)}
+                    title={dataImagePreview.title}
+                    onClose={() => setStatusLighBoxPreview(false)}
+                    backdrop='static'
+                />
+            }
+
         </div>
     )
 }

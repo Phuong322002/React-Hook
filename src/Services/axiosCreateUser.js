@@ -110,5 +110,5 @@ export {
     CreateQuiz,
     getDataQuiz,
     deleteQuiz,
-    updateQuiz
+    updateQuiz,
 }

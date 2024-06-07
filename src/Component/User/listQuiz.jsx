@@ -27,6 +27,7 @@ const ListQuiz = (props) => {
         navigate(`/quiz/${quiz.id}`, { state: { quizdescription: quiz.description } })
 
     }
+    console.log('>>> lisQuiz: ', listQuiz)
 
     return (
         <div className="list-quiz-container container">

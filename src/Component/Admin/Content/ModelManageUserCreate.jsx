@@ -143,6 +143,8 @@ const ModalManageUserCreate = (props) => {
                                 id="inputState"
                                 className="form-select"
                                 onChange={(e) => { return setRole(e.target.value) }}
+                                value={role}
+
                             >
                                 <option value='USER'>USER</option>
                                 <option value='ADMIN'>ADMIN</option>
