@@ -12,6 +12,8 @@ const Header = () => {
 
     const dispatch = useDispatch()
 
+
+    // hook useSelector dùng để lấy data bên redux 
     const account = useSelector((state) => state?.user?.account)
 
     /// state?.user? (cụm này là status)

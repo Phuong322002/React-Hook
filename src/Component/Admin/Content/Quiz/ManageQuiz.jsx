@@ -10,6 +10,8 @@ import Accordion from 'react-bootstrap/Accordion';
 
 import ManageDeletequiz from "./ManageDeleteQuiz"
 import ManageUpdatequiz from './ManageUpdateQuiz';
+import UpdateQA from './UpdateQA';
+import AssignQuizUser from './assignQuizUser';
 
 
 const ManageQuiz = (props) => {
@@ -150,24 +152,43 @@ const ManageQuiz = (props) => {
                                     </div>
                                 </fieldset>
                             </form>
+                            <div className="list-detail ">
+                                <TableQuiz
+                                    setShowModalQuiz={setShowModalQuiz}
+                                    listQuiz={listQuiz}
+                                    statusView={statusView}
+                                    setStatusView={setStatusView}
+                                    setQuizInfor={setQuizInfor}
+                                    setShowModalUpdatequiz={setShowModalUpdatequiz}
+                                    setQuizView={setQuizView}
+
+                                />
+                            </div>
+                        </div>
+                    </Accordion.Body>
+                </Accordion.Item>
+
+                <Accordion.Item eventKey="1">
+                    <Accordion.Header>Update Q/A quiz</Accordion.Header>
+                    <Accordion.Body>
+                        <div className="quiz-content">
+                            <UpdateQA />
+                        </div>
+                    </Accordion.Body>
+                </Accordion.Item>
+
+                <Accordion.Item eventKey="2">
+                    <Accordion.Header>Assign quiz user</Accordion.Header>
+                    <Accordion.Body>
+                        <div className="quiz-content">
+                            <AssignQuizUser />
                         </div>
                     </Accordion.Body>
                 </Accordion.Item>
             </Accordion>
 
 
-            <div className="list-detail ">
-                <TableQuiz
-                    setShowModalQuiz={setShowModalQuiz}
-                    listQuiz={listQuiz}
-                    statusView={statusView}
-                    setStatusView={setStatusView}
-                    setQuizInfor={setQuizInfor}
-                    setShowModalUpdatequiz={setShowModalUpdatequiz}
-                    setQuizView={setQuizView}
 
-                />
-            </div>
             <ViewQuiz
                 statusView={statusView}
                 setStatusView={setStatusView}

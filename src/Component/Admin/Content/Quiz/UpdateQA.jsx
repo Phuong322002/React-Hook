@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import Select from 'react-select';
-import './question.scss'
+import './UpdateQA.scss'
 import { FaFolderPlus } from "react-icons/fa";
 import { FaFolderMinus } from "react-icons/fa";
 import { FaImage } from "react-icons/fa";
@@ -12,7 +12,7 @@ import Lightbox from "react-awesome-lightbox";
 import { getDataQuiz } from '../../../../Services/axiosCreateUser';
 import { postCreateNewQuestionForQuiz, postCreateNewAnswerForQuiz } from '../../../../Services/axiosCreateUser';
 import { toast } from 'react-toastify';
-const QuestionOfQuiz = () => {
+const UpdateQA = () => {
 
 
 
@@ -340,43 +340,12 @@ const QuestionOfQuiz = () => {
             }
 
         }
-
-        // toast.success('Create Question Succeed!');
-
-        // setQuestions([
-        //     {
-        //         id: uuidv4(),
-        //         description: '',
-        //         imageFile: '',
-        //         imageName: '',
-        //         isValidateQuestion: true,
-        //         selectedCheckBox: 0,
-        //         answers: [
-        //             {
-        //                 id: uuidv4(),
-        //                 description: '',
-        //                 isCorrect: false,
-        //                 isValidateAnswer: true,
-
-        //             }
-        //         ]
-        //     }
-
-        // ])
-
-
     }
 
     console.log('qq: ', questions)
 
-    console.log('selectedQuestion:', selectedQuestion)
-
     return (
         <div className="question-container">
-            <div className="title-question">
-                Manage Questions:
-            </div>
-            <hr />
             <div className="question-selected">
                 <label className='lable-select'>Select Quiz:</label>
                 <Select
@@ -528,4 +497,4 @@ const QuestionOfQuiz = () => {
     )
 }
 
-export default QuestionOfQuiz
+export default UpdateQA

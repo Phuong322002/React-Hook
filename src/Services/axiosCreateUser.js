@@ -96,6 +96,31 @@ const updateQuiz = (idQuizUpdate, descriptionQuizUpdate,  nameUpdate, difficulty
     return instance.put('api/v1/quiz', data)
 }
 
+const postCreateNewQuestionForQuiz = (quiz_id, description, questionImage) => {
+
+    const data = new FormData();
+    data.append('quiz_id',quiz_id);
+    data.append('description', description);
+    data.append('questionImage', questionImage);
+
+    return instance.post('api/v1/question', data);
+}
+
+
+const postCreateNewAnswerForQuiz = (description, correct_answer, question_id) => {
+
+    return instance.post('api/v1/answer', {
+        description: description,
+        correct_answer: correct_answer,
+        question_id: question_id
+    })
+
+}
+
+const postAssignQuizToUser = (quizId, userId) => {
+    return instance.post('api/v1/quiz-assign-to-user', {quizId, userId})
+}
+
 export {
     AxiosCreateUser,
     getUser,
@@ -111,4 +136,7 @@ export {
     getDataQuiz,
     deleteQuiz,
     updateQuiz,
+    postCreateNewQuestionForQuiz,
+    postCreateNewAnswerForQuiz,
+    postAssignQuizToUser
 }

@@ -53,7 +53,7 @@ const Layout = () => {
 
             </Routes>
             <ToastContainer
-                position="top-center"
+                position="top-right"
                 autoClose={5000}
                 hideProgressBar={false}
                 newestOnTop={false}
@@ -64,6 +64,7 @@ const Layout = () => {
                 pauseOnHover
                 theme="light"
             />
+            {/* Same as */}
         </>
     )
 }
