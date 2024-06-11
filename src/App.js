@@ -4,6 +4,7 @@ import HomePage from './Component/Home/HomePage';
 import Users from './Component/User/listQuiz';
 import Admin from './Component/Admin/Admins';  
 import { Link, Outlet } from 'react-router-dom';
+import PerfectScrollbar from 'react-perfect-scrollbar'
 
 // import {
 //   BrowserRouter,
@@ -25,7 +26,9 @@ const App = () => {
         
   </div>
     <div className='route-app-container'>
-      <Outlet/>
+    <PerfectScrollbar>
+    <Outlet/>
+    </PerfectScrollbar>
             {/* <button class="btn btn-warning" ><Link style={{ color: 'white' }} to='/'>Home</Link></button>
             <button><Link to="/user">User</Link></button>
             <button><Link to='/admin'>Admin</Link></button> */}

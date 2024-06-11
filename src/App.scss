@@ -13,6 +13,8 @@ body {
  .header-container{
 
 
+ }
+
   .navbar{
 
   }
@@ -59,11 +61,12 @@ body {
         max-width: 1504px;
     }
 }
- } 
 
  .main-container{
 
     .route-app-container{
+    height: calc(100vh - 60px);
+
       video{
         position: fixed;
         bottom: -60px;

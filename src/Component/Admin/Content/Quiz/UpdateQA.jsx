@@ -9,9 +9,10 @@ import { AiOutlineMinusCircle } from "react-icons/ai";
 import { v4 as uuidv4 } from 'uuid';
 import _ from 'lodash'
 import Lightbox from "react-awesome-lightbox";
-import { getDataQuiz } from '../../../../Services/axiosCreateUser';
+import { getDataQuiz, getQuestionAnswer } from '../../../../Services/axiosCreateUser';
 import { postCreateNewQuestionForQuiz, postCreateNewAnswerForQuiz } from '../../../../Services/axiosCreateUser';
 import { toast } from 'react-toastify';
+
 const UpdateQA = () => {
 
 
@@ -24,21 +25,18 @@ const UpdateQA = () => {
 
     const [selectedQuestion, setSelectedQuestion] = useState('')
 
-
+    console.log('>>check SELECTED: ', selectedQuestion)
     const [questions, setQuestions] = useState([
         {
             id: uuidv4(),
             description: '',
             imageFile: '',
             imageName: '',
-            isValidateQuestion: true,
-            selectedCheckBox: 0,
             answers: [
                 {
                     id: uuidv4(),
                     description: '',
                     isCorrect: false,
-                    isValidateAnswer: true,
 
                 }
             ]
@@ -73,6 +71,58 @@ const UpdateQA = () => {
 
     console.log('listQuiz: ', listQuiz)
 
+    // return a promise that resolves with a File instance
+    function urltoFile(url, filename, mimeType) {
+        if (url.startsWith('data:')) {
+            var arr = url.split(','),
+                mime = arr[0].match(/:(.*?);/)[1],
+                bstr = atob(arr[arr.length - 1]),
+                n = bstr.length,
+                u8arr = new Uint8Array(n);
+            while (n--) {
+                u8arr[n] = bstr.charCodeAt(n);
+            }
+            var file = new File([u8arr], filename, { type: mime || mimeType });
+            return Promise.resolve(file);
+        }
+        return fetch(url)
+            .then(res => res.arrayBuffer())
+            .then(buf => new File([buf], filename, { type: mimeType }));
+    }
+
+    //Usage example:
+    urltoFile('data:text/plain;base64,aGVsbG8=', 'hello.txt', 'text/plain')
+        .then(function (file) { console.log(file); });
+
+    useEffect(() => {
+        if (selectedQuestion && selectedQuestion.value) {
+            fetchDataQuestionAnswer()
+        }
+    }, [selectedQuestion])
+
+    const fetchDataQuestionAnswer = async () => {
+        const response = await getQuestionAnswer(selectedQuestion.value)
+
+        console.log('check data question and answer:  ', response)
+
+        if (response && response.EC === 0) {
+            console.log('response.DT.qa', response.DT)
+            const newArr = [];
+            for (let i = 0; i < response.DT.qa.length; i++) {
+                console.log('response.DT.qa[i]: ', response.DT.qa)
+                const q = response.DT.qa[i]
+                if (response && response.DT.qa[i].imageFile) {
+                    q.imageName = `Question - ${q.id}`
+                    q.imageFile = await urltoFile(`data:image/png;base64,${q.imageFile}`, `Question - ${q.id}`, 'image/png')
+                }
+                newArr.push(q)
+            }
+
+            console.log('newArr: ', newArr)
+            setQuestions(newArr)
+        }
+    }
+
     const handleAddRemoveQuestion = (type, id) => {
         console.log(type, id)
         const questionClone = _.cloneDeep(questions)
@@ -82,14 +132,11 @@ const UpdateQA = () => {
                 description: '',
                 imageFile: '',
                 imageName: '',
-                isValidateQuestion: true,
-                selectedCheckBox: 0,
                 answers: [
                     {
                         id: uuidv4(),
                         description: '',
                         isCorrect: false,
-                        isValidateAnswer: true
                     }
                 ]
             }
@@ -114,7 +161,6 @@ const UpdateQA = () => {
                 id: uuidv4(),
                 description: '',
                 isCorrect: false,
-                isValidateAnswer: true,
             }
             const index = questionClone.findIndex((q, index) => {
                 return q.id === idQuestion
@@ -365,12 +411,7 @@ const UpdateQA = () => {
                                 <div className="form-floating mb-3 input-add">
                                     <input
                                         type="email"
-                                        className={question.isValidateQuestion === true
-                                            ?
-                                            "form-control"
-                                            :
-                                            "form-control is-invalid "
-                                        }
+                                        className="form-control"
                                         placeholder="name@example.com"
                                         value={question.description}
                                         onChange={(event) => { handleOnChangeQuestion(event, question.id) }}
@@ -434,13 +475,7 @@ const UpdateQA = () => {
                                         <div className="form-floating mb-3 input-answer ">
                                             <input
                                                 type="email"
-                                                className={answer.isValidateAnswer === true
-                                                    ?
-                                                    "form-control"
-                                                    :
-                                                    "form-control is-invalid"
-
-                                                }
+                                                className="form-control"
                                                 // className="form-control"
                                                 placeholder=''
                                                 value={answer.description}

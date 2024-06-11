@@ -121,6 +121,11 @@ const postAssignQuizToUser = (quizId, userId) => {
     return instance.post('api/v1/quiz-assign-to-user', {quizId, userId})
 }
 
+const getQuestionAnswer = (quizId) => {
+
+    return instance.get(`api/v1/quiz-with-qa/${quizId}`)
+}
+
 export {
     AxiosCreateUser,
     getUser,
@@ -138,5 +143,6 @@ export {
     updateQuiz,
     postCreateNewQuestionForQuiz,
     postCreateNewAnswerForQuiz,
-    postAssignQuizToUser
+    postAssignQuizToUser,
+    getQuestionAnswer
 }
