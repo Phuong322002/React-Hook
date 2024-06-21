@@ -1,0 +1,39 @@
+{
+    "homepage": {
+        "title": "There's a better way to ask",
+        "text": "You don't want to make a boring form. And your audience won't answer one. Create a typeform instead-and make everyone happy",
+        "btnStart": "Get's started. It's fress",
+        "doingQuiz": "Doing Quiz now"
+    },
+    "login": {
+        "header": "Don't have an account yet?",
+        "wellcome": "Hello, who’s this?"
+    },
+    "register": {
+        "header": "Already have an account",
+        "wellcome": "Hello"
+    },
+    "headerHome": {
+        "home": "Home",
+        "user": "User",
+        "admin": "Admin"
+    },
+    "sideBar": {
+        "new": "New",
+        "dashboard": "Dashboard",
+        "features": "Features",
+        "userManage": "User Manage",
+        "quizManage": "Quiz Manage",
+        "questionManage": "Question Manage"
+    },
+    "dashboard": {
+        "title": "Analysis DashBoard",
+        "child1": "Total users",
+        "child2": "Total Quizzes",
+        "child3": "Total Questions",
+        "child4": "Total Answers",
+        "quizzes": "Quizzes",
+        "Questions": "Questions",
+        "Answers": "Answers"
+    }
+}

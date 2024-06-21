@@ -2,5 +2,10 @@
     display: flex;
     gap: 50px;
     flex-wrap: wrap;
-    // height: calc(100vh - 60px);
+}
+
+.breadcrumb{
+    a{
+        text-decoration: none;
+    }
 }

@@ -1,0 +1,48 @@
+.dashboard-container{
+    padding: 10px;
+    width: 100%;
+
+.title-dashboard{
+    font-size: 20px;
+    font-weight: 600;
+}
+.content-dashboard{
+    height:300px ;
+
+    display: flex;
+    .left-dashboard{
+        width: 40%;
+        display: flex;
+        flex-wrap: wrap;  
+        gap: 20px;
+        .child{
+            border: 1px solid;
+           border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: calc(50% - 10px);
+            flex-direction: column;
+            .title-1{
+                font-size: 15px;
+            }
+
+            .title-2{
+                font-size: 30px;
+                font-weight: 500;
+                font-style: inherit;
+            }
+        
+    }
+    }
+
+    .right-dashboard{
+        width: 60%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+   
+}

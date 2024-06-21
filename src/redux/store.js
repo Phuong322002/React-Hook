@@ -3,7 +3,7 @@ import thunk from 'redux-thunk'
 import rootReducer from './reducer/rootReducer';
 import { persistStore, persistReducer } from 'redux-persist'
 import { composeWithDevTools } from 'redux-devtools-extension';
-import storage from 'redux-persist/lib/storage' // defaults to localStorage for web
+import storage from 'redux-persist/lib/storage' // defaults to localStorage for web để ứng dụng lưu data vào storage khi F5
 
 const persistConfig = {
     key: 'root',

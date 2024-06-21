@@ -1,5 +1,5 @@
 import { FETH_USER_LOGIN } from "../action/userLogin";
-import { User_Log_Out } from "../action/userLogout";
+import {LOG_OUT_USER} from '../action/LogoutUserAction'
 
 const INITIAL_STATE = {
     account : {
@@ -14,6 +14,7 @@ const INITIAL_STATE = {
 }
 
 const userReducer = (state= INITIAL_STATE, action) => {
+    
     switch (action.type) {
         case FETH_USER_LOGIN:
             console.log('>> check action user', action)
@@ -31,22 +32,26 @@ const userReducer = (state= INITIAL_STATE, action) => {
             }
             console.log('check state: ',state)
             return state;
-        
-            case User_Log_Out:
-                console.log('check action logout', action)
-                state = {
-                    ...state,
-                    account : {
-                        access_token: '',
-                        refresh_token:'',
-                        email:'',
-                        image: '',
-                        role:'',
-                        username:''
-                    },
-                    isAuthecated: false
-                }
-                return state
+
+        case LOG_OUT_USER: 
+
+        console.log('>>> check action log out: ', action)
+
+        state = {
+            ...state,
+            account : {
+                access_token: '',
+                refresh_token:'',
+                email:'',
+                image: '',
+                role:'',
+                username:''
+            },
+            isAuthecated: false
+        }
+
+        return state
+          
         default: return state
     }
 }

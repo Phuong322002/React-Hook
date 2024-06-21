@@ -9,8 +9,7 @@ import { AiOutlineMinusCircle } from "react-icons/ai";
 import { v4 as uuidv4 } from 'uuid';
 import _ from 'lodash'
 import Lightbox from "react-awesome-lightbox";
-import { getDataQuiz, getQuestionAnswer } from '../../../../Services/axiosCreateUser';
-import { postCreateNewQuestionForQuiz, postCreateNewAnswerForQuiz } from '../../../../Services/axiosCreateUser';
+import { getDataQuiz, getQuestionAnswer, postUpsertQuizWithQA } from '../../../../Services/axiosCreateUser';
 import { toast } from 'react-toastify';
 
 const UpdateQA = () => {
@@ -284,14 +283,6 @@ const UpdateQA = () => {
 
     const handleCreateQuestion = async () => {
         console.log('>>questions: ', questions, 'selectedQuestion', selectedQuestion)
-        // await Promise.all(questions.map(async (question) => {
-        //     const responseQuestion = await postCreateNewQuestionForQuiz(selectedQuestion.value, question.description, question.imageFile)
-
-        //     await Promise.all(question.answers.map(async (ans) => {
-        //         const responseAnswer = await postCreateNewAnswerForQuiz(ans.description, ans.isCorrect, responseQuestion.DT.id)
-        //         console.log('check all data; ', responseQuestion, responseAnswer)
-        //     }))
-        // }))
 
         // validate seleted
         if (_.isEmpty(selectedQuestion)) {
@@ -340,51 +331,33 @@ const UpdateQA = () => {
             }
         }
 
-
         const questionClone = _.cloneDeep(questions)
-        console.log('aa: ', questionClone)
-        const testQues = questionClone.map((q) => {
 
-            console.log('q:', q)
-            if (q.description === '') {
-                q.isValidateQuestion = false;
-            } else {
-                q.isValidateQuestion = true;
+        const toBase64 = file => new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = reject;
+        });
+
+        console.log(questionClone)
+        const newArr = [];
+        for (let i = 0; i < questionClone.length; i++) {
+            console.log('questionClone[i]: ', questionClone[i])
+            if (questionClone[i] && questionClone[i].imageFile) {
+                questionClone[i].imageFile = await toBase64(questionClone[i].imageFile)
             }
-
-            const testAns = q.answers.map((a) => {
-                if (a.description === '') {
-                    //    const isValidateAnswer = a.isValidateAnswer = false
-                    console.log('q.answers:', q.answers)
-                    a.isValidateAnswer = false
-                }
-                if (a.description) {
-                    a.isValidateAnswer = true
-                }
-                return a
-            })
-            q.answers = testAns
-            // console.log('testAns: ', testAns)
-            return q
+            newArr.push(questionClone[i])
+        }
+        console.log('>>>>Check newArr: ', newArr, '>>>>check quesClone: ', questionClone)
+        const response = await postUpsertQuizWithQA({
+            quizId: selectedQuestion.value,
+            questions: newArr
         })
-        setQuestions(testQues)
-        console.log('testQues: ', testQues)
-
-
-
-        // sắp xếp câu hỏi 
-        for (let question of questions) {
-            console.log('>>>Check data: ', question)
-            const responseQuestion = await postCreateNewQuestionForQuiz(+selectedQuestion.value, question.description, question.imageFile);
-            console.log('???: ', responseQuestion)
-            // description, correct_answer, question_id
-            for (let answer of question.answers) {
-                console.log('check aa: ', +question.id)
-                const responseAnswers = await postCreateNewAnswerForQuiz(answer.description, answer.isCorrect, +responseQuestion.DT.id)
-                console.log('responseAnswers: ', responseAnswers)
-
-            }
-
+        console.log('response: ', response)
+        if (response && response.EC === 0) {
+            toast(response.EM)
+            fetchDataQuestionAnswer()
         }
     }
 

@@ -6,10 +6,12 @@ import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux'
 import { userLogin } from '../../redux/action/userLogin';
 import { ImSpinner2 } from "react-icons/im";
-
+import Language from '../Header/language';
+import Nav from 'react-bootstrap/Nav';
+import { useTranslation, Trans } from 'react-i18next';
 
 const LoginUser = (props) => {
-
+    const { t, i18n } = useTranslation();
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
@@ -61,14 +63,19 @@ const LoginUser = (props) => {
     return (
         <div className="login-man">
             <div className="login-header">
-                Don't have an account yet?
+                {t('login.header')}
                 <button className='btn-signup' onClick={() => { NavigateRigister() }}>Sign up</button>
+                <div >
+                    <Language />
+                </div>
+
+
             </div>
             <div className="title">
                 ReactHook
             </div>
             <div className="wellcome">
-                Hello, who’s this?
+                {t('login.wellcome')}
             </div>
             <div className="form-content col-4 mx-auto">
                 <div className="form-group  ">

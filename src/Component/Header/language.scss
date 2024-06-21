@@ -1,0 +1,28 @@
+
+
+.main{
+    width: fit-content;
+        height: 38px; 
+        border: 0px solid;
+        // padding: 4px 3px;
+        border-radius: 3px;
+        // background-color: rgb(221, 219, 219);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    .icon-language{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 500;
+      width: fit-content;
+      padding-right: 5px;
+    }
+
+    .container{
+        padding: 0px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}

@@ -7,6 +7,7 @@ import { useLocation } from "react-router-dom"
 import Question from "./Question"
 import { SubmitAnswer } from "../../Services/axiosCreateUser"
 import ModalSumit from "./ModalSubmitAnswer"
+import RightContent from "./Content/RightContent"
 
 const DetailQuiz = () => {
 
@@ -54,6 +55,8 @@ const DetailQuiz = () => {
                         // Đặt cờ để biết câu hỏi nào chưa or đc chọn 
                         item.answers.isSelected = false
                         aw.push(item.answers)
+                        aw = _.orderBy(aw, ['id'], ['asc'])
+
                     })
                     return {
                         qustionsId: key,
@@ -255,7 +258,12 @@ const DetailQuiz = () => {
             </div>
 
             <div className="right-content">
-                count-down
+                <RightContent
+                    dataQuiz={dataQuiz}
+                    handleSubmit={handleSubmit}
+                    setCurrQuiz={setCurrQuiz}
+                    currQuiz={currQuiz}
+                />
             </div>
             <ModalSumit
                 statusModalSubmit={statusModalSubmit}

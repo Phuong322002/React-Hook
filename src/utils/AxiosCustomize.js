@@ -27,7 +27,7 @@ instance.interceptors.request.use(function (config) {
 
   console.log('>> check acces_token: ',dataOfReduxRToGetToken)
 
-  // sau khi lấy được data ở Redux nhờ vào đó ta lấy được access_token để gửi lên server xác minh tài khoản
+  // sau khi lấy được data ở Redux nhờ vào đó ta lấy được access_token để gửi lên server xác minh tài khoản By using Axios interceptor:
   config.headers["Authorization"] = `Bearer ${dataOfReduxRToGetToken}` ;
 
   NProgress.start();

@@ -1,9 +1,13 @@
 import _ from 'lodash'
 import './question.scss'
+import Lightbox from "react-awesome-lightbox";
+import { useState } from 'react';
 
 const Question = (props) => {
 
     const { dataQuiz, currQuiz, handleCheckBox } = props
+
+    const [statusLighBoxPreview, setStatusLighBoxPreview] = useState(false)
 
     console.log('>> check data question: ', dataQuiz)
     console.log('>> check currQuiz', currQuiz)
@@ -22,7 +26,16 @@ const Question = (props) => {
     return (
         <>
             {dataQuiz.image ? <div className="q-body">
-                <img src={`data:image/png;base64,${dataQuiz.image}`} alt="" />
+                <img src={`data:image/png;base64,${dataQuiz.image}`} alt="" onClick={() => setStatusLighBoxPreview(true)} />
+                {statusLighBoxPreview === true &&
+                    <Lightbox
+                        image={`data:image/png;base64,${dataQuiz.image}`}
+                        title={'Question-image'}
+                        onClose={() => setStatusLighBoxPreview(false)}
+                        backdrop='static'
+                    />
+                }
+
             </div>
                 :
                 <div className="q-body">
@@ -55,6 +68,7 @@ const Question = (props) => {
                 }
 
             </div>
+
         </>
     )
 }

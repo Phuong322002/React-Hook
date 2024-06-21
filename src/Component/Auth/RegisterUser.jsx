@@ -6,11 +6,14 @@ import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { IoEyeSharp } from "react-icons/io5";
 import { IoMdEyeOff } from "react-icons/io";
-
+import Language from '../Header/language';
+import { useTranslation, Trans } from 'react-i18next';
 
 const RegisterUser = (props) => {
 
     const navigate = useNavigate()
+
+    const { t } = useTranslation();
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -86,14 +89,18 @@ const RegisterUser = (props) => {
         <>
             <div className="register-main">
                 <div className='header-register'>
-                    Already have an account
+                    {t('register.header')}
                     <button className='btn-back-login'>Log in</button>
+                    <div >
+                        <Language />
+                    </div>
+
                 </div>
                 <div className="title-resgister">
                     ReactHook - Register
                 </div>
                 <div className="wellcome-register">
-                    Hello
+                    {t('register.wellcome')}
                 </div>
                 <div className="form-content col-4 mx-auto">
                     <div className="form-group ">

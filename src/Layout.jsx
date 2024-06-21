@@ -18,6 +18,8 @@ import DetailQuiz from "./Component/User/DetailQuiz";
 import ListQuiz from "./Component/User/listQuiz";
 import ManageQuiz from "./Component/Admin/Content/Quiz/ManageQuiz";
 import QuestionOfQuiz from "./Component/Admin/Content/Question/QuestionsOfQuiz";
+import PrivateRoute from "./routes/PrivateRoute";
+import { Suspense } from 'react';
 
 const Notfound = () => {
     return (
@@ -30,16 +32,24 @@ const Notfound = () => {
 const Layout = () => {
 
     return (
-        <>
+        <Suspense fallback="...is loading">
             <Routes>
                 <Route path="/" element={<App />} >
                     <Route index element={<HomePage />} />
-                    <Route path="user" element={<ListQuiz />} />
+                    <Route path="user" element={
+                        <PrivateRoute>
+                            <ListQuiz />
+                        </PrivateRoute>
+                    } />
                 </Route>
 
                 <Route path="/quiz/:id" element={<DetailQuiz />} />
 
-                <Route path="/admin" element={<Admin />} >
+                <Route path="/admin" element={
+                    <PrivateRoute>
+                        <Admin />
+                    </PrivateRoute>
+                } >
                     <Route index element={<Dashboard />} />
                     <Route path='manage-user' element={<ManageUser />} />
                     <Route path="manage-quiz" element={<ManageQuiz />} />
@@ -65,7 +75,7 @@ const Layout = () => {
                 theme="light"
             />
             {/* Same as */}
-        </>
+        </Suspense>
     )
 }
 

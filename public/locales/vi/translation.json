@@ -1,0 +1,39 @@
+{
+    "homepage": {
+        "title": "Có một cách tốt hơn để hỏi",
+        "text": "Bạn không muốn tạo ra một hình thức nhàm chán. Và khán giả của bạn sẽ không trả lời một. Thay vào đó, hãy tạo một kiểu chữ-và làm cho mọi người hài lòng",
+        "btnStart": "Bắt đầu ngay. Hoàn toàn miễn phí",
+        "doingQuiz": "Làm bài Quiz nào"
+    },
+    "login": {
+        "header": "Vẫn chưa có tài khoản?",
+        "wellcome": "Xin chào, đây là ai?"
+    },
+    "register": {
+        "header": "Bạn đã có tài khoản rồi!",
+        "wellcome": "Xin chào"
+    },
+    "headerHome": {
+        "home": "Trang chủ",
+        "user": "Người dùng",
+        "admin": "Quản trị viên"
+    },
+    "sideBar": {
+        "new": "Mới",
+        "dashboard": "Bảng điều khiển",
+        "features": "Tính năng",
+        "userManage": "Quản lý người dùng",
+        "quizManage": "Quản lý câu đố",
+        "questionManage": "Quản lý câu hỏi"
+    },
+    "dashboard": {
+        "title": "Bảng điều khiển phân tích",
+        "child1": "Tổng số người dùng",
+        "child2": "Tổng số câu đố",
+        "child3": "Tổng số câu hỏi",
+        "child4": "Tổng số câu trả lời",
+        "quizzes": "Câu đố",
+        "Questions": "Câu hỏi",
+        "Answers": "Câu trả lời"
+    }
+}

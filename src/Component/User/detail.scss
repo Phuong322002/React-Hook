@@ -58,7 +58,45 @@ padding: 50px;
     }
 
     .right-content{
-        border: 1px solid green;
-        width: 30%
+        border-radius: 5px;
+        border: 2px solid ;
+        width: 30%;
+        padding: 20px;
+        .main-timer{
+            text-align: center;
+            border-bottom: dashed;
+            padding: 24px;
+        }
+        .content{
+            display: flex;
+            gap: 20px;
+            padding: 15px;
+            flex-wrap: wrap;    
+            
+
+            .question{  
+                font-size: 15px;
+                font-weight: 600;
+            border: 1px solid black;
+            border-radius: 50%;
+            height: 40px;
+            width: 40px;
+                    padding: 10px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    &:hover{
+                        color: rgb(214, 15, 18);
+                    }
+
+                    &.selected{
+                        background-color: rgb(191, 217, 217);
+                    }
+
+                    &.clicked{
+                        color: rgb(58, 31, 212);
+                    }
+            }
+        }
     }
 }

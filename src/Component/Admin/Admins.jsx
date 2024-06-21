@@ -8,7 +8,10 @@ import { IoHome } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 
 import PerfectScrollbar from 'react-perfect-scrollbar'
-
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import NavDropdown from 'react-bootstrap/NavDropdown';
+import Language from "../Header/language";
 const Admin = (props) => {
 
     const navigate = useNavigate()
@@ -54,8 +57,22 @@ const Admin = (props) => {
             </div>
             <div className="admin-content" >
                 <div className="admin-header">
-                    <FaBars onClick={() => { handleShowHideSideBar() }} />
-                    <IoHome className="back-home" onClick={() => { handleBackHome() }} />
+
+                    <span onClick={() => { handleShowHideSideBar() }} className="leftside">
+                        <FaBars />
+                    </span>
+                    <div className="rightside">
+                        <Language />
+                        <NavDropdown title="Setting" id="basic-nav-dropdown" className='setting'>
+                            {/* <NavDropdown.Item >Log in</NavDropdown.Item> */}
+                            {/* <NavDropdown.Item onClick={() => { handleLogOut() }}>Log out</NavDropdown.Item> */}
+                            <NavDropdown.Item >Log out</NavDropdown.Item>
+
+                            <NavDropdown.Item >Profile</NavDropdown.Item>
+
+                        </NavDropdown>
+
+                    </div>
 
                 </div>
                 <div className="admin-main-content">

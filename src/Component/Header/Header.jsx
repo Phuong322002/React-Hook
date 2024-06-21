@@ -5,12 +5,19 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
+import { LogoutUser } from '../../Services/axiosCreateUser';
+import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
-import { actionUserLogOut } from '../../redux/action/userLogout';
+import { LogOutUserAction } from '../../redux/action/LogoutUserAction';
+import { MdOutlineLanguage } from "react-icons/md";
+import { useTranslation, Trans } from 'react-i18next';
+
 
 const Header = () => {
 
     const dispatch = useDispatch()
+    const { t, i18n } = useTranslation();
+    console.log('i18n: ', i18n.languages)
 
 
     // hook useSelector dùng để lấy data bên redux 
@@ -19,7 +26,6 @@ const Header = () => {
     /// state?.user? (cụm này là status)
     const isAuthecated = useSelector((state) => state?.user?.isAuthecated)
 
-    console.log('>>check account: ', account)
     console.log('>> Check isAuthecated:', isAuthecated)
 
     const navigate = useNavigate();
@@ -32,12 +38,26 @@ const Header = () => {
         navigate('/register')
     }
 
-    const handleLogOut = () => {
-        console.log('isAuthecatedd', isAuthecated)
-        dispatch(actionUserLogOut())
-        navigate('/')
+    const handleLogOut = async () => {
+
+        console.log('>>check account: ', account)
+
+        const response = await LogoutUser(account.email, account.refresh_token)
+        console.log('response log out: ', response)
+        if (response.EC === 0) {
+            dispatch(LogOutUserAction())
+            navigate('/')
+            toast.success(response.EM)
+        } else {
+            toast.error(response.EM);
+            return;
+        }
     }
 
+
+    const handleChangeLanguage = (language) => {
+        i18n.changeLanguage(language);
+    }
     return (
         <Navbar expand="lg" className="bg-body-tertiary">
             <Container>
@@ -46,12 +66,20 @@ const Header = () => {
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
-                        <NavLink to='/' className='nav-link'>Home</NavLink>
-                        <NavLink to='user' className='nav-link'>User</NavLink>
-                        <NavLink to='/admin' className='nav-link'>Admin</NavLink>
+                        <NavLink to='/' className='nav-link'>{t('headerHome.home')}</NavLink>
+                        <NavLink to='user' className='nav-link'>{t('headerHome.user')}</NavLink>
+                        <NavLink to='/admin' className='nav-link'>{t('headerHome.admin')}</NavLink>
                         {/* <Nav.Link href="/">Home</Nav.Link>
                         <Nav.Link href="/user">Users</Nav.Link>
                         <Nav.Link href="/admin">Admin</Nav.Link> */}
+                    </Nav>
+                    <Nav>
+                        <NavDropdown title={i18n.language === 'vi' ? 'Vietnamese' : 'English'} id="basic-nav-dropdown2" className='language1'>
+                            {/* <NavDropdown.Item >Log in</NavDropdown.Item> */}
+                            <NavDropdown.Item onClick={() => { handleChangeLanguage('vi') }}>VietNames</NavDropdown.Item>
+                            <NavDropdown.Item onClick={() => { handleChangeLanguage('en') }}>English</NavDropdown.Item>
+                        </NavDropdown>
+                        <MdOutlineLanguage style={{ marginTop: '13px', marginRight: '10px' }} />
                     </Nav>
                     <Nav>
                         {isAuthecated === false
@@ -61,16 +89,17 @@ const Header = () => {
                                 <button className='btn-signup' onClick={() => { handleSignUp() }}>Sign up</button>
                             </>
                             :
-                            <NavDropdown title="Setting" id="basic-nav-dropdown">
+                            <NavDropdown title="Setting" id="basic-nav-dropdown" className='setting'>
                                 {/* <NavDropdown.Item >Log in</NavDropdown.Item> */}
                                 <NavDropdown.Item onClick={() => { handleLogOut() }}>Log out</NavDropdown.Item>
                                 <NavDropdown.Item >Profile</NavDropdown.Item>
 
                             </NavDropdown>
                         }
-
-
                     </Nav>
+
+
+
                 </Navbar.Collapse>
             </Container>
         </Navbar>

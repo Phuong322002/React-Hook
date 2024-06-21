@@ -126,6 +126,19 @@ const getQuestionAnswer = (quizId) => {
     return instance.get(`api/v1/quiz-with-qa/${quizId}`)
 }
 
+const postUpsertQuizWithQA = (data) => {
+    //data raw chứa mảng và obj trong 1 obj lớn thì truyền theo kiểu này
+    return instance.post('api/v1/quiz-upsert-qa', {...data})
+}
+
+const LogoutUser = (email, refresh_token ) => {
+    return instance.post('api/v1/logout', {email, refresh_token} )
+}
+
+const getOverview = () => {
+    return instance.get('api/v1/overview')
+}
+
 export {
     AxiosCreateUser,
     getUser,
@@ -144,5 +157,8 @@ export {
     postCreateNewQuestionForQuiz,
     postCreateNewAnswerForQuiz,
     postAssignQuizToUser,
-    getQuestionAnswer
+    getQuestionAnswer,
+    postUpsertQuizWithQA,
+    LogoutUser,
+    getOverview
 }

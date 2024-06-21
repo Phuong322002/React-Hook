@@ -9,6 +9,40 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.language{
+  .dropdown-toggle:after { content: none }
+  .dropdown-menu {
+    min-width: auto !important;
+}
+
+#navbarScrollingDropdown {
+    width: fit-content;
+}
+}
+
+.language1{
+  .dropdown-toggle:after { content: none }
+  .dropdown-menu {
+    min-width: auto !important;
+}
+
+#navbarScrollingDropdown {
+    width: fit-content;
+}
+// margin-right: 10px;
+}
+
+.setting{
+  .dropdown-menu {
+    min-width: auto !important;
+}
+
+#navbarScrollingDropdown {
+    width: fit-content;
+}
+}
+
+
 .app-container{
  .header-container{
 
@@ -27,8 +61,10 @@ body {
   .navbar-nav {
     z-index: 10;
     background-color: rgba(0,0,0, 0) !important;
+
     
     .nav-link{
+      
       &.active{
         color: #00bfff;
       }
